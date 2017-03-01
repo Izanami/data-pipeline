@@ -33,7 +33,6 @@ typedef struct DpPipeline {
 ///  DpPipelineDestroy(&pipeline_ouput);
 ///  DpPipelineDestroy(&pipeline);
 /// \endcode
-
 void DpPipelineCreate(DpPipeline**);
 
 /// \brief Destructor of pipeline.
