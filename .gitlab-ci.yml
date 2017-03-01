@@ -1,0 +1,39 @@
+image: debian:sid
+
+before_script:
+    - apt-get update && apt-get -y upgrade  && apt-get -y install build-essential cmake clang git libcmocka-dev libglib2.0-dev
+
+stages:
+  - build
+  - test
+
+build_gcc:
+  stage: build
+  script:
+    - export CC=gcc
+    - export CXX=g++
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+
+build_clang:
+  stage: build
+  script:
+    - export CC=clang
+    - export CXX=clang++
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+
+test:
+  stage: test
+  script:
+    - export CC=clang
+    - export CXX=clang++
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+    - make test
