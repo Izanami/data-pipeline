@@ -7,6 +7,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 # Packages
 find_package(Doxygen)
 find_package(Glib)
+find_package(cmocka)
 
 # Options
 option(DEVEL "Enable devel mode" OFF)
@@ -43,7 +44,7 @@ target_link_libraries(datapipeline ${GLib_LIBRARY})
 ###
 enable_testing()
 add_executable(test-pipeline src/pipeline_test.c)
-target_link_libraries(test-pipeline datapipeline cmocka)
+target_link_libraries(test-pipeline datapipeline ${CMOCKA_LIBRARY})
 add_test(test test-pipeline)
 
 ###
