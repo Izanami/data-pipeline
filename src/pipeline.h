@@ -10,7 +10,7 @@
 
 #include "glib.h"
 
-///
+/// \brief Pipeline class.
 typedef struct DpPipeline {
     GData* input;   ///< Input pipelines.
     GData* output;  ///< Output pipelines.
@@ -20,6 +20,20 @@ typedef struct DpPipeline {
 ///
 /// Pipeline MUST freed with DpPipelineDestroy()
 ///
+/// Example:
+/// \code
+///  DpPipeline *pipeline = NULL;
+///  DpPipeline *pipeline_output = NULL;
+///
+///  DpPipelineCreate(&pipeline);
+///  DpPipelineCreate(&pipeline_output);
+///
+///  DpPipelinePushOutput(pipeline, "foo", pipeline_ouput);
+///
+///  DpPipelineDestroy(&pipeline_ouput);
+///  DpPipelineDestroy(&pipeline);
+/// \endcode
+
 void DpPipelineCreate(DpPipeline**);
 
 /// \brief Destructor of pipeline.
