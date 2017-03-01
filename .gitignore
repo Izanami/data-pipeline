@@ -1,5 +1,2 @@
 /build
 /__pycache__
-documentation/*
-!documentation/*.tex
-!documentation/Makefile
