@@ -1,7 +1,12 @@
 image: jeser/data-pipeline-ci
 
 before_script:
-    - apt-get update && apt-get -y upgrade  && apt-get -y install build-essential cmake clang git libcmocka-dev libglib2.0-dev
+    - apt-get update && apt-get -y upgrade  && apt-get -y install build-essential cmake clang git libcmocka-dev libglib2.0-dev ninja-build
+    - mkdir build
+    - cd build
+    - export CC=clang
+    - export CXX=clang++
+    - cmake -G "Ninja" ..
 
 stages:
   - build
@@ -12,28 +17,23 @@ build_gcc:
   script:
     - export CC=gcc
     - export CXX=g++
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
+    - ninja
 
 build_clang:
   stage: build
   script:
-    - export CC=clang
-    - export CXX=clang++
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
+    - ninja
 
-test:
+test_fast:
   stage: test
   script:
-    - export CC=clang
-    - export CXX=clang++
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
-    - make test
+    - ninja
+    - ninja test
+
+test_devel:
+  stage: test
+  script:
+    - cmake -G "Ninja" -DDEVEL=true ..
+    - ninja
+    - ninja test
+
