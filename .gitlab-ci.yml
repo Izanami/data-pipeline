@@ -34,7 +34,7 @@ test_devel:
   stage: test
   artifacts:
     paths:
-        - Testing/
+        - build/Testing/
     when: on_failure
   script:
     - cmake -G "Ninja" -DDEVEL=true ..
