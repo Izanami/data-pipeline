@@ -39,20 +39,28 @@ void DpPipelineFree(DpPipeline* self) {
     g_datalist_clear(&(self->output));
 }
 
-gboolean DpPipelinePushInput(DpPipeline* self, const char* name,
+gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
                              DpPipeline* pipeline_input) {
     // Ignore push because circular dependency is forbidden.
     if (self == pipeline_input) return FALSE;
 
-    g_datalist_set_data(&self->input, name, pipeline_input);
+    g_datalist_set_data(&self->input, key, pipeline_input);
     return TRUE;
 }
 
-gboolean DpPipelinePushOutput(DpPipeline* self, const char* name,
+gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
                               DpPipeline* pipeline_output) {
     // Ignore push because circular dependency is forbidden.
     if (self == pipeline_output) return FALSE;
 
-    g_datalist_set_data(&self->output, name, pipeline_output);
+    g_datalist_set_data(&self->output, key, pipeline_output);
     return TRUE;
+}
+
+gpointer DpPipelineGetInput(DpPipeline* self, const char* key) {
+    return g_datalist_get_data(&self->input, key);
+}
+
+gpointer DpPipelineGetOutput(DpPipeline* self, const char* key) {
+    return g_datalist_get_data(&self->output, key);
 }

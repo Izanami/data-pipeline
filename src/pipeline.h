@@ -47,13 +47,23 @@ void DpPipelineFree(DpPipeline* self);
 /// \brief Push pipeline on inputs channel.
 ///
 ///  If the key exists, pipeline is replaced.
-gboolean DpPipelinePushInput(DpPipeline* self, const char* name,
+gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
                              DpPipeline* pipeline_input);
 
 /// \brief Push pipeline on output channel.
 ///
 ///  If the key exists, pipeline is replaced.
-gboolean DpPipelinePushOutput(DpPipeline* self, const char* name,
+gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
                               DpPipeline* pipeline_output);
+
+/// \brief Getter input pipeline.
+///
+/// \return The data element, or NULL if is nout found.
+gpointer DpPipelineGetInput(DpPipeline* self, const char* key);
+
+/// \brief Getter ouput pipeline.
+///
+/// \return The data element, or NULL if is nout found.
+gpointer DpPipelineGetOutput(DpPipeline* self, const char* key);
 
 #endif /* ifndef DP_PIPELINE_H_ */
