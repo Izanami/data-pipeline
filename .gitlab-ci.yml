@@ -46,7 +46,7 @@ pages:
   stage: deploy
   script:
   - ninja doc
-  - mv doc/html public/
+  - mv doc/html ../public/
   artifacts:
     paths:
     - public
