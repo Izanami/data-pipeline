@@ -1,7 +1,7 @@
 image: jeser/data-pipeline-ci
 
 before_script:
-    - apt-get update && apt-get -y upgrade  && apt-get -y install build-essential cmake clang git libcmocka-dev libglib2.0-dev ninja-build
+    - apt-get update && apt-get -y upgrade  && apt-get -y install build-essential cmake clang git libcmocka-dev libglib2.0-dev ninja-build doxygen graphviz
     - mkdir build
     - cd build
     - export CC=clang
@@ -41,3 +41,13 @@ test_devel:
     - ninja
     - ninja test
 
+pages:
+  script:
+  - cmake ..
+  - make doc
+  - mv doc/html public/
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
