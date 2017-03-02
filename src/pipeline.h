@@ -11,6 +11,10 @@
 #include "glib.h"
 #include "job.h"
 
+/*! \defgroup pipeline Pipeline
+ *  \{
+ */
+
 /// \brief Pipeline class.
 typedef struct DpPipeline {
     GData* input;      ///< Input pipelines.
@@ -91,5 +95,9 @@ gpointer DpPipelineGetInput(DpPipeline* self, const char* key)
 /// \return The data element, or NULL if is not found.
 gpointer DpPipelineGetOutput(DpPipeline* self, const char* key)
     __attribute__((nonnull));
+
+/*!
+ * \}
+ */
 
 #endif /* ifndef DP_PIPELINE_H_ */

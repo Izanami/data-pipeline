@@ -21,6 +21,10 @@
 
 #include "glib.h"
 
+/*! \defgroup job Job
+ *  \{
+ */
+
 /// \brief Job class.
 typedef struct { GList* pipelines; } DpJob;
 
@@ -47,5 +51,9 @@ GList* DpJobOrphan(DpJob*) __attribute__((nonnull));
 
 /// \brief Destroy all orphans pipelines.
 void DpJobOrphanDestroy(DpJob*) __attribute__((nonnull));
+
+/*!
+ * \}
+ */
 
 #endif /* ifndef DP_JOB_H_ */
