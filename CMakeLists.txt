@@ -47,7 +47,8 @@ add_executable(test-pipeline src/pipeline_test.c)
 add_executable(test-job src/job_test.c)
 target_link_libraries(test-pipeline datapipeline ${CMOCKA_LIBRARY})
 target_link_libraries(test-job datapipeline ${CMOCKA_LIBRARY})
-add_test(test test-pipeline test-job)
+add_test(test-pipeline test-pipeline)
+add_test(test-job test-job)
 
 ###
 # DOCUMENTATION
