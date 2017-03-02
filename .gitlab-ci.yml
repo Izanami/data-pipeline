@@ -30,14 +30,14 @@ test_fast:
     - ninja
     - ninja test
 
-test_devel:
-  stage: test
-  artifacts:
-    paths:
-        - build/Testing/
-    when: on_failure
-  script:
-    - cmake -G "Ninja" -DDEVEL=true ..
-    - ninja
-    - ninja test
+#test_devel:
+  #stage: test
+  #artifacts:
+    #paths:
+        #- build/Testing/
+    #when: on_failure
+  #script:
+    #- cmake -G "Ninja" -DDEVEL=true ..
+    #- ninja
+    #- ninja test
 
