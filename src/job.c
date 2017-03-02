@@ -54,6 +54,34 @@ gpointer DpJobPipelineNew(DpJob* self) {
     return NULL;
 }
 
-/*GSList* DpJobOrphan(DpJob*);*/
+GSList* DpJobOrphan(DpJob* self) {
+    GSList* orphans = NULL;
+    GSList* pipelines = self->pipelines;
 
-/*void DpJobOrphanDestroy(DpJob*);*/
+    while (pipelines != NULL) {
+        DpPipeline* pipeline = pipelines->data;
+        if (pipeline->input_count == 0 && pipeline->output_count == 0) {
+            orphans = g_slist_append(orphans, pipeline);
+        }
+
+        pipelines = g_slist_next(pipelines);
+    }
+
+    return orphans;
+}
+
+void DpJobOrphanDestroy(DpJob* self) {
+    /*GSList* pipelines = self->pipelines;*/
+
+    /*while (pipelines != NULL) {*/
+    /*DpPipeline* pipeline = pipelines->data;*/
+    /*if (pipeline->input_count == 0 && pipeline->output_count == 0) {*/
+    /*g_slist_free_1(pipelines);*/
+    /*}*/
+    /*pipelines = g_slist_next(pipelines);*/
+    /*}*/
+
+    /*self->pipelines = pipelines;*/
+
+    (void)self;
+}

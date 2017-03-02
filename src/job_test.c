@@ -26,10 +26,29 @@ static int teardown(void **state) {
 
 static void null_test(void **state) { (void)state; }
 
+static void orphans_test(void **state) {
+    DpJob *job = *state;
+    GSList *orphans = DpJobOrphan(job);
+    assert_non_null(orphans);
+}
+
+static void orphans_destroy_test(void **state) {
+    DpJob *job = *state;
+    DpJobOrphanDestroy(job);
+
+    /*GSList *orphans = DpJobOrphan(job);*/
+    /*assert_null(orphans);*/
+    *state = job;
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(null_test, setup, teardown),
         cmocka_unit_test_setup_teardown(null_test, setup_populated, teardown),
+        cmocka_unit_test_setup_teardown(orphans_test, setup_populated,
+                                        teardown),
+        cmocka_unit_test_setup_teardown(orphans_destroy_test, setup_populated,
+                                        teardown),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

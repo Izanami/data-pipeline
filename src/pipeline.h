@@ -13,9 +13,11 @@
 
 /// \brief Pipeline class.
 typedef struct DpPipeline {
-    GData* input;   ///< Input pipelines.
-    GData* output;  ///< Output pipelines.
-    DpJob* job;     ///< Job.
+    GData* input;      ///< Input pipelines.
+    GData* output;     ///< Output pipelines.
+    DpJob* job;        ///< Job.
+    int input_count;   ///< Number of elements on input pipelines.
+    int output_count;  ///< Number of elements on output pipelines.
 } DpPipeline;
 
 /// \brief Builder of pipeline.
