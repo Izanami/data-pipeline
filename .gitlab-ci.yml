@@ -42,9 +42,9 @@ test_devel:
     - ninja test
 
 pages:
+  stage: deploy
   script:
-  - cmake ..
-  - make doc
+  - ninja doc
   - mv doc/html public/
   artifacts:
     paths:
