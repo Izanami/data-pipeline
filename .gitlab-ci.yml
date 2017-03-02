@@ -47,6 +47,9 @@ pages:
   script:
   - ninja doc
   - mv doc/html ../public/
+  environment:
+    name: documentation
+    url: https://jeser.frama.io/Data-Pipeline/
   artifacts:
     paths:
     - public
