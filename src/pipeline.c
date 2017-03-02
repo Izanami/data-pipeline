@@ -18,6 +18,12 @@
 
 #include "pipeline.h"
 
+DpPipeline* DpPipelineNew(void) {
+    DpPipeline* pipeline = NULL;
+    DpPipelineCreate(&pipeline);
+    return pipeline;
+}
+
 void DpPipelineCreate(DpPipeline** pipeline) {
     *pipeline = g_new(DpPipeline, 1);
     DpPipelineInit(*pipeline);

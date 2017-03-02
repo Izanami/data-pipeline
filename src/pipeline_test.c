@@ -7,8 +7,7 @@
 #include "pipeline.h"
 
 static int setup(void **state) {
-    DpPipeline *pipeline = NULL;
-    DpPipelineCreate(&pipeline);
+    DpPipeline *pipeline = DpPipelineNew();
 
     *state = pipeline;
     return 0;
@@ -25,6 +24,7 @@ static int setup_populated(void **state) {
     DpPipelinePushInput(pipeline, "input", pipeline_pushed);
     DpPipelinePushOutput(pipeline, "output", pipeline_pushed);
 
+    DpPipelineDestroy(&pipeline_pushed);
     return 0;
 }
 
@@ -44,8 +44,6 @@ static void push_test(void **state) {
     DpPipelinePushOutput(pipeline, "foo", pipeline_pushed);
 
     DpPipelineDestroy(&pipeline_pushed);
-
-    (void)state;
 }
 
 static void getter_test(void **state) {
@@ -53,8 +51,6 @@ static void getter_test(void **state) {
 
     assert_non_null(DpPipelineGetInput(pipeline, "input"));
     assert_non_null(DpPipelineGetOutput(pipeline, "output"));
-
-    (void)state;
 }
 
 int main(void) {

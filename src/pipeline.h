@@ -9,15 +9,35 @@
 #define DP_PIPELINE_H_
 
 #include "glib.h"
+#include "job.h"
 
 /// \brief Pipeline class.
 typedef struct DpPipeline {
     GData* input;   ///< Input pipelines.
     GData* output;  ///< Output pipelines.
+    DpJob* job;     ///< Job.
 } DpPipeline;
+
+/// \brief Builder of pipeline.
+///
+/// Pipeline MUST freed with DpPipelineDestroy().
+///
+/// Example:
+/// \code
+///
+///  DpPipeline* pipeline = DpPipelineNew();
+///  DpPipeline* pipeline_output = DpPipelineNew();
+///
+///  DpPipelinePushOutput(pipeline, "foo", pipeline_ouput);
+///
+///  DpPipelineDestroy(&pipeline_ouput);
+///  DpPipelineDestroy(&pipeline);
+/// \endcode
+DpPipeline* DpPipelineNew(void);
 
 /// \brief Constructor of pipeline.
 ///
+/// Prefer use DpPipelinesNew().
 /// Pipeline MUST freed with DpPipelineDestroy()
 ///
 /// Example:
