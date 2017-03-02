@@ -36,8 +36,9 @@ static void orphans_destroy_test(void **state) {
     DpJob *job = *state;
     DpJobOrphanDestroy(job);
 
-    /*GSList *orphans = DpJobOrphan(job);*/
-    /*assert_null(orphans);*/
+    GList *orphans = DpJobOrphan(job);
+    assert_null(orphans);
+    assert_null(job->pipelines);
     *state = job;
 }
 

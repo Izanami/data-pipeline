@@ -71,17 +71,17 @@ GList* DpJobOrphan(DpJob* self) {
 }
 
 void DpJobOrphanDestroy(DpJob* self) {
-    /*GSList* pipelines = self->pipelines;*/
+    GList* cursor = self->pipelines;
 
-    /*while (pipelines != NULL) {*/
-    /*DpPipeline* pipeline = pipelines->data;*/
-    /*if (pipeline->input_count == 0 && pipeline->output_count == 0) {*/
-    /*g_slist_free_1(pipelines);*/
-    /*}*/
-    /*pipelines = g_slist_next(pipelines);*/
-    /*}*/
+    while (cursor != NULL) {
+        DpPipeline* pipeline = cursor->data;
 
-    /*self->pipelines = pipelines;*/
-
-    (void)self;
+        // If has not any link, when destroy it.
+        if (pipeline->input_count == 0 && pipeline->output_count == 0) {
+            self->pipelines = g_list_delete_link(self->pipelines, cursor);
+            g_list_free1(cursor);
+            DpPipelineDestroy(&pipeline);
+        }
+        cursor = g_list_next(cursor);
+    }
 }
