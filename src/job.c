@@ -44,27 +44,27 @@ static void DpJobFreeEach(gpointer data) {
 }
 
 void DpJobFree(DpJob* self) {
-    g_slist_free_full(self->pipelines, &DpJobFreeEach);
+    g_list_free_full(self->pipelines, &DpJobFreeEach);
 }
 
 gpointer DpJobPipelineNew(DpJob* self) {
     DpPipeline* pipeline = DpPipelineNew();
 
-    self->pipelines = g_slist_append(self->pipelines, pipeline);
+    self->pipelines = g_list_append(self->pipelines, pipeline);
     return NULL;
 }
 
-GSList* DpJobOrphan(DpJob* self) {
-    GSList* orphans = NULL;
-    GSList* pipelines = self->pipelines;
+GList* DpJobOrphan(DpJob* self) {
+    GList* orphans = NULL;
+    GList* pipelines = self->pipelines;
 
     while (pipelines != NULL) {
         DpPipeline* pipeline = pipelines->data;
         if (pipeline->input_count == 0 && pipeline->output_count == 0) {
-            orphans = g_slist_append(orphans, pipeline);
+            orphans = g_list_append(orphans, pipeline);
         }
 
-        pipelines = g_slist_next(pipelines);
+        pipelines = g_list_next(pipelines);
     }
 
     return orphans;

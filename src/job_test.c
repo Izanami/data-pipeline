@@ -28,7 +28,7 @@ static void null_test(void **state) { (void)state; }
 
 static void orphans_test(void **state) {
     DpJob *job = *state;
-    GSList *orphans = DpJobOrphan(job);
+    GList *orphans = DpJobOrphan(job);
     assert_non_null(orphans);
 }
 

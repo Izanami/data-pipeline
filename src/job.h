@@ -22,7 +22,7 @@
 #include "glib.h"
 
 /// \brief Job class.
-typedef struct { GSList* pipelines; } DpJob;
+typedef struct { GList* pipelines; } DpJob;
 
 /// \brief Builder of job.
 DpJob* DpJobNew(void);
@@ -43,7 +43,7 @@ void DpJobFree(DpJob*);
 gpointer DpJobPipelineNew(DpJob*);
 
 /// \brief Returns all orhpans pipelines.
-GSList* DpJobOrphan(DpJob*);
+GList* DpJobOrphan(DpJob*);
 
 /// \brief Destroy all orphans pipelines.
 void DpJobOrphanDestroy(DpJob*);
