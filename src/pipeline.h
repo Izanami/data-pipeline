@@ -35,7 +35,7 @@ typedef struct DpPipeline {
 ///  DpPipelineDestroy(&pipeline_ouput);
 ///  DpPipelineDestroy(&pipeline);
 /// \endcode
-DpPipeline* DpPipelineNew(void);
+DpPipeline* DpPipelineNew(void) __attribute__((warn_unused_result));
 
 /// \brief Constructor of pipeline.
 ///
@@ -55,37 +55,41 @@ DpPipeline* DpPipelineNew(void);
 ///  DpPipelineDestroy(&pipeline_ouput);
 ///  DpPipelineDestroy(&pipeline);
 /// \endcode
-void DpPipelineCreate(DpPipeline**);
+void DpPipelineCreate(DpPipeline**) __attribute__((nonnull));
 
 /// \brief Destructor of pipeline.
-void DpPipelineDestroy(DpPipeline**);
+void DpPipelineDestroy(DpPipeline**) __attribute__((nonnull));
 
 /// \brief Initialize of pipeline.
-void DpPipelineInit(DpPipeline* self);
+void DpPipelineInit(DpPipeline* self) __attribute__((nonnull));
 
 /// \brief Deallocation memory of data in pipeline.
-void DpPipelineFree(DpPipeline* self);
+void DpPipelineFree(DpPipeline* self) __attribute__((nonnull));
 
 /// \brief Push pipeline on inputs channel.
 ///
 ///  If the key exists, pipeline is replaced.
 gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
-                             DpPipeline* pipeline_input);
+                             DpPipeline* pipeline_input)
+    __attribute__((nonnull));
 
 /// \brief Push pipeline on output channel.
 ///
 ///  If the key exists, pipeline is replaced.
 gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
-                              DpPipeline* pipeline_output);
+                              DpPipeline* pipeline_output)
+    __attribute__((nonnull));
 
 /// \brief Getter input pipeline.
 ///
-/// \return The data element, or NULL if is nout found.
-gpointer DpPipelineGetInput(DpPipeline* self, const char* key);
+/// \return The data element, or NULL if is not found.
+gpointer DpPipelineGetInput(DpPipeline* self, const char* key)
+    __attribute__((nonnull));
 
 /// \brief Getter ouput pipeline.
 ///
-/// \return The data element, or NULL if is nout found.
-gpointer DpPipelineGetOutput(DpPipeline* self, const char* key);
+/// \return The data element, or NULL if is not found.
+gpointer DpPipelineGetOutput(DpPipeline* self, const char* key)
+    __attribute__((nonnull));
 
 #endif /* ifndef DP_PIPELINE_H_ */

@@ -26,7 +26,7 @@ if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Weverything")
 endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --pedantic -pedantic-errors --std=c11 -Werror -Wno-padded")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --pedantic -pedantic-errors --std=c11 -Werror")
 
 # Glib
 if(NOT GLib_FOUND)

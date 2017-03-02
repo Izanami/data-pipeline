@@ -25,27 +25,27 @@
 typedef struct { GList* pipelines; } DpJob;
 
 /// \brief Builder of job.
-DpJob* DpJobNew(void);
+DpJob* DpJobNew(void) __attribute__((warn_unused_result));
 
 /// \brief Constructor of job.
-void DpJobCreate(DpJob**);
+void DpJobCreate(DpJob**) __attribute__((nonnull));
 
 /// \brief Destructor of job.
-void DpJobDestroy(DpJob**);
+void DpJobDestroy(DpJob**) __attribute__((nonnull));
 
 /// \brief Initalize data in job
-void DpJobInit(DpJob*);
+void DpJobInit(DpJob*) __attribute__((nonnull));
 
 /// \brief Deallocation memory of job.
-void DpJobFree(DpJob*);
+void DpJobFree(DpJob*) __attribute__((nonnull));
 
 /// \brief Build a pipeline.
 gpointer DpJobPipelineNew(DpJob*);
 
 /// \brief Returns all orhpans pipelines.
-GList* DpJobOrphan(DpJob*);
+GList* DpJobOrphan(DpJob*) __attribute__((nonnull));
 
 /// \brief Destroy all orphans pipelines.
-void DpJobOrphanDestroy(DpJob*);
+void DpJobOrphanDestroy(DpJob*) __attribute__((nonnull));
 
 #endif /* ifndef DP_JOB_H_ */
