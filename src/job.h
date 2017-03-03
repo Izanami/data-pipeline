@@ -26,7 +26,9 @@
  */
 
 /// \brief Job class.
-typedef struct { GList* pipelines; } DpJob;
+typedef struct {
+    GList* pipelines;  ///< All pipelines, in a job.
+} DpJob;
 
 /// \brief Builder of job.
 DpJob* DpJobNew(void) __attribute__((warn_unused_result));
