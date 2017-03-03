@@ -30,7 +30,7 @@ typedef struct {
     GList* pipelines;  ///< All pipelines, in a job.
 } DpJob;
 
-/// \brief Builder of job.
+/// \brief Factory of job.
 DpJob* DpJobNew(void) __attribute__((warn_unused_result));
 
 /// \brief Constructor of job.

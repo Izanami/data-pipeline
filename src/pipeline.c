@@ -52,7 +52,7 @@ void DpPipelineFree(DpPipeline* self) {
 
 gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
                              DpPipeline* pipeline_input) {
-    // Ignore push because circular dependency is forbidden.
+    // Ignore push because a circular dependency is forbidden.
     if (self == pipeline_input) return FALSE;
 
     self->input_count++;
@@ -63,7 +63,7 @@ gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
 
 gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
                               DpPipeline* pipeline_output) {
-    // Ignore push because circular dependency is forbidden.
+    // Ignore push because a circular dependency is forbidden.
     if (self == pipeline_output) return FALSE;
 
     self->output_count++;
