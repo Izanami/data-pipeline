@@ -25,6 +25,8 @@ typedef struct DpPipeline {
 
 /// \brief Factory of pipeline.
 ///
+/// You SHOULD NOT used. Prefer DpJobPipelineNew().
+//
 /// Pipeline MUST freed with DpPipelineDestroy().
 ///
 /// Example:
@@ -41,7 +43,8 @@ DpPipeline* DpPipelineNew(void) __attribute__((warn_unused_result));
 
 /// \brief Constructor of pipeline.
 ///
-/// You SHOULD used. Prefer DpJobPipelineNew().
+/// You SHOULD NOT used. Prefer DpJobPipelineNew().
+///
 /// Pipeline MUST freed with DpPipelineDestroy().
 void DpPipelineCreate(DpPipeline**) __attribute__((nonnull));
 
