@@ -17,11 +17,10 @@
 
 /// \brief Pipeline class.
 typedef struct DpPipeline {
-    GData* input;       ///< Input pipelines.
-    GData* output;      ///< Output pipelines.
-    GList* ptr_in_job;  ///< Pointers to element on the owner job.
-    int input_count;    ///< Number of elements on input pipelines.
-    int output_count;   ///< Number of elements on output pipelines.
+    GData* input;      ///< Input pipelines.
+    GData* output;     ///< Output pipelines.
+    int input_count;   ///< Number of elements on input pipelines.
+    int output_count;  ///< Number of elements on output pipelines.
 } DpPipeline;
 
 /// \brief Factory of pipeline.
@@ -44,7 +43,6 @@ DpPipeline* DpPipelineNew(void) __attribute__((warn_unused_result));
 ///
 /// You SHOULD used. Prefer DpJobPipelineNew().
 /// Pipeline MUST freed with DpPipelineDestroy().
-/// The member "ptr_in_job" MUST assigned.
 void DpPipelineCreate(DpPipeline**) __attribute__((nonnull));
 
 /// \brief Destructor of pipeline.

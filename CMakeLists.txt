@@ -71,3 +71,9 @@ if(BUILD_DOCUMENTATION)
 
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html DESTINATION share/doc)
 endif()
+
+###
+# TOOLS
+##
+
+configure_file(watchdog.sh.in watchdog.sh)
