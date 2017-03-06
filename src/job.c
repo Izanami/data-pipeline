@@ -60,7 +60,7 @@ GList* DpJobOrphan(DpJob* self) {
 
     while (pipelines != NULL) {
         DpPipeline* pipeline = pipelines->data;
-        if (pipeline->input_count == 0 && pipeline->output_count == 0) {
+        if (DpPipelineIsOrphan(pipeline)) {
             orphans = g_list_append(orphans, pipeline);
         }
 
@@ -76,12 +76,13 @@ void DpJobOrphanDestroy(DpJob* self) {
     while (cursor != NULL) {
         DpPipeline* pipeline = cursor->data;
 
-        // If has not any link, when destroy it.
-        if (pipeline->input_count == 0 && pipeline->output_count == 0) {
+        // If it is a orphan, when destroy it.
+        if (DpPipelineIsOrphan(pipeline)) {
             self->pipelines = g_list_delete_link(self->pipelines, cursor);
             g_list_free1(cursor);
             DpPipelineDestroy(&pipeline);
         }
+
         cursor = g_list_next(cursor);
     }
 }
