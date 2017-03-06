@@ -83,6 +83,11 @@ gpointer DpPipelineGetInput(DpPipeline* self, const char* key)
 gpointer DpPipelineGetOutput(DpPipeline* self, const char* key)
     __attribute__((nonnull));
 
+/// \brief Returns true is orphan.
+///
+/// A orphan is a pipeline who has no input and no ouput
+gboolean DpPipelineIsOrphan(DpPipeline* self);
+
 /*!
  * \}
  */

@@ -79,3 +79,7 @@ gpointer DpPipelineGetInput(DpPipeline* self, const char* key) {
 gpointer DpPipelineGetOutput(DpPipeline* self, const char* key) {
     return g_datalist_get_data(&self->output, key);
 }
+
+gboolean DpPipelineIsOrphan(DpPipeline* self) {
+    return (self->output_count == 0 && self->input_count == 0);
+}

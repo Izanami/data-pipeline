@@ -53,10 +53,17 @@ static void getter_test(void **state) {
     assert_non_null(DpPipelineGetOutput(pipeline, "output"));
 }
 
+static void orphan_test(void **state) {
+    DpPipeline *pipeline = *state;
+
+    assert_true(DpPipelineIsOrphan(pipeline));
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(push_test, setup, teardown),
         cmocka_unit_test_setup_teardown(getter_test, setup_populated, teardown),
+        cmocka_unit_test_setup_teardown(orphan_test, setup, teardown),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
