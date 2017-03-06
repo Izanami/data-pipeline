@@ -67,6 +67,9 @@ static void getter_test(void **state) {
 
     assert_non_null(DpPipelineGetInput(pipeline, "input"));
     assert_non_null(DpPipelineGetOutput(pipeline, "output"));
+
+    assert_null(DpPipelineGetOutput(pipeline, "unknown"));
+    assert_null(DpPipelineGetInput(pipeline, "unknown"));
 }
 
 static void orphan_test(void **state) {
