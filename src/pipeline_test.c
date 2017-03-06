@@ -18,18 +18,34 @@ static int setup_populated(void **state) {
 
     DpPipeline *pipeline = *state;
 
-    DpPipeline *pipeline_pushed = NULL;
-    DpPipelineCreate(&pipeline_pushed);
+    DpPipeline *pipeline_input = NULL;
+    DpPipelineCreate(&pipeline_input);
 
-    DpPipelinePushInput(pipeline, "input", pipeline_pushed);
-    DpPipelinePushOutput(pipeline, "output", pipeline_pushed);
+    DpPipeline *pipeline_output = NULL;
+    DpPipelineCreate(&pipeline_output);
 
-    DpPipelineDestroy(&pipeline_pushed);
+    DpPipelinePushInput(pipeline, "input", pipeline_input);
+    DpPipelinePushOutput(pipeline, "output", pipeline_output);
     return 0;
 }
 
 static int teardown(void **state) {
     DpPipeline *pipeline = *state;
+    DpPipelineDestroy(&pipeline);
+    return 0;
+}
+
+static int teardown_populated(void **state) {
+    DpPipeline *pipeline = *state;
+
+    DpPipeline *pushed_output = DpPipelineGetOutput(pipeline, "output");
+    assert_non_null(&pushed_output);
+    DpPipelineDestroy(&pushed_output);
+
+    DpPipeline *pushed_input = DpPipelineGetInput(pipeline, "input");
+    assert_non_null(&pushed_input);
+    DpPipelineDestroy(&pushed_input);
+
     DpPipelineDestroy(&pipeline);
     return 0;
 }
@@ -55,15 +71,22 @@ static void getter_test(void **state) {
 
 static void orphan_test(void **state) {
     DpPipeline *pipeline = *state;
-
     assert_true(DpPipelineIsOrphan(pipeline));
+}
+
+static void no_orphan_test(void **state) {
+    DpPipeline *pipeline = *state;
+    assert_false(DpPipelineIsOrphan(pipeline));
 }
 
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(push_test, setup, teardown),
-        cmocka_unit_test_setup_teardown(getter_test, setup_populated, teardown),
+        cmocka_unit_test_setup_teardown(getter_test, setup_populated,
+                                        teardown_populated),
         cmocka_unit_test_setup_teardown(orphan_test, setup, teardown),
+        cmocka_unit_test_setup_teardown(no_orphan_test, setup_populated,
+                                        teardown_populated),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

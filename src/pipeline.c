@@ -30,6 +30,7 @@ void DpPipelineCreate(DpPipeline** pipeline) {
 }
 
 void DpPipelineDestroy(DpPipeline** pipeline) {
+    if (*pipeline == NULL) return;
     DpPipelineFree(*pipeline);
     g_free(*pipeline);
     *pipeline = NULL;
