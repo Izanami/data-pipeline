@@ -17,11 +17,14 @@
 
 /// \brief Pipeline class.
 typedef struct DpPipeline {
-    GData* input;      ///< Input pipelines.
-    GData* output;     ///< Output pipelines.
-    int input_count;   ///< Number of elements on input pipelines.
-    int output_count;  ///< Number of elements on output pipelines.
+    GData* input;       ///< Input pipelines.
+    GData* output;      ///< Output pipelines.
+    GData* properties;  ///< Properties
+    int input_count;    ///< Number of elements on input pipelines.
+    int output_count;   ///< Number of elements on output pipelines.
 } DpPipeline;
+
+enum PROPERTY { EMPTY = 0 };
 
 /// \brief Factory of pipeline.
 ///
@@ -86,7 +89,17 @@ gpointer DpPipelineGetOutput(DpPipeline* self, const char* key)
 /// \brief Returns true is orphan.
 ///
 /// A orphan is a pipeline who has no input and no ouput
-gboolean DpPipelineIsOrphan(DpPipeline* self);
+gboolean DpPipelineIsOrphan(DpPipeline* self) __attribute__((nonnull));
+
+/// \brief Setter a property
+///
+/// The value will be copy.
+void DpPipelineSetProperty(DpPipeline* self, const char* name_property,
+                           char* value) __attribute__((nonnull));
+
+/// \brief Getter a property
+GString* DpPipelineGetProperty(DpPipeline* self, const char* name_property)
+    __attribute__((nonnull));
 
 /*!
  * \}

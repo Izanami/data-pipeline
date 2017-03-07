@@ -82,6 +82,24 @@ static void no_orphan_test(void **state) {
     assert_false(DpPipelineIsOrphan(pipeline));
 }
 
+static void property_test(void **state) {
+    DpPipeline *pipeline = *state;
+    GString *value = NULL;
+
+    assert_null(DpPipelineGetProperty(pipeline, "buzz"));
+    DpPipelineSetProperty(pipeline, "buzz", "true");
+
+    value = DpPipelineGetProperty(pipeline, "buzz");
+    assert_non_null(value);
+    assert_string_equal(value->str, "true");
+
+    DpPipelineSetProperty(pipeline, "buzz", "false");
+
+    value = DpPipelineGetProperty(pipeline, "buzz");
+    assert_non_null(value);
+    assert_string_equal(value->str, "true");
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(push_test, setup, teardown),
@@ -90,6 +108,7 @@ int main(void) {
         cmocka_unit_test_setup_teardown(orphan_test, setup, teardown),
         cmocka_unit_test_setup_teardown(no_orphan_test, setup_populated,
                                         teardown_populated),
+        cmocka_unit_test_setup_teardown(property_test, setup, teardown),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

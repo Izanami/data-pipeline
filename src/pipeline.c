@@ -39,6 +39,7 @@ void DpPipelineDestroy(DpPipeline** pipeline) {
 void DpPipelineInit(DpPipeline* self) {
     g_datalist_init(&(self->input));
     g_datalist_init(&(self->output));
+    g_datalist_init(&(self->properties));
 
     self->input_count = 0;
     self->output_count = 0;
@@ -47,6 +48,7 @@ void DpPipelineInit(DpPipeline* self) {
 void DpPipelineFree(DpPipeline* self) {
     g_datalist_clear(&(self->input));
     g_datalist_clear(&(self->output));
+    g_datalist_clear(&(self->properties));
     self->input_count = 0;
     self->output_count = 0;
 }
@@ -56,9 +58,8 @@ gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
     // Ignore push because a circular dependency is forbidden.
     if (self == pipeline_input) return FALSE;
 
-    self->input_count++;
-
     g_datalist_set_data(&self->input, key, pipeline_input);
+    self->input_count++;
     return TRUE;
 }
 
@@ -67,9 +68,8 @@ gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
     // Ignore push because a circular dependency is forbidden.
     if (self == pipeline_output) return FALSE;
 
-    self->output_count++;
-
     g_datalist_set_data(&self->output, key, pipeline_output);
+    self->output_count++;
     return TRUE;
 }
 
@@ -83,4 +83,20 @@ gpointer DpPipelineGetOutput(DpPipeline* self, const char* key) {
 
 gboolean DpPipelineIsOrphan(DpPipeline* self) {
     return (self->output_count == 0 && self->input_count == 0);
+}
+
+GString* DpPipelineGetProperty(DpPipeline* self, const char* name_property) {
+    return g_datalist_get_data(&self->properties, name_property);
+}
+
+void DpPipelineSetProperty(DpPipeline* self, const char* name_property,
+                           char* value) {
+    GString* value_str = DpPipelineGetProperty(self, name_property);
+
+    // If not exists, when initialize.
+    if (value_str == NULL) {
+        value_str = g_string_new(value);
+    }
+
+    g_datalist_set_data(&self->properties, name_property, value_str);
 }
