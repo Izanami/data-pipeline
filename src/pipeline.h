@@ -24,8 +24,6 @@ typedef struct DpPipeline {
     int output_count;   ///< Number of elements on output pipelines.
 } DpPipeline;
 
-enum PROPERTY { EMPTY = 0 };
-
 /// \brief Factory of pipeline.
 ///
 /// You SHOULD NOT used. Prefer DpJobPipelineNew().
