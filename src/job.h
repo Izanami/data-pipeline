@@ -39,7 +39,7 @@ void DpJobCreate(DpJob**) __attribute__((nonnull));
 /// \brief Destructor of job.
 void DpJobDestroy(DpJob**) __attribute__((nonnull));
 
-/// \brief Initalize data in job
+/// \brief Initialize data in job
 void DpJobInit(DpJob*) __attribute__((nonnull));
 
 /// \brief Deallocation memory of job.
