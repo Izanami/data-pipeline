@@ -63,6 +63,9 @@ gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
 
     g_datalist_set_data(&self->input, key, pipeline_input);
     self->input_count++;
+
+    if (self->OnGetInput != NULL) self->OnGetInput(self, pipeline_input);
+
     return TRUE;
 }
 
@@ -73,6 +76,8 @@ gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
 
     g_datalist_set_data(&self->output, key, pipeline_output);
     self->output_count++;
+
+    if (self->OnGetOutput != NULL) self->OnGetOutput(self, pipeline_output);
     return TRUE;
 }
 
