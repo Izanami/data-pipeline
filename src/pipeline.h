@@ -21,7 +21,11 @@ typedef struct DpPipeline {
     GData* output;      ///< Output pipelines.
     GData* properties;  ///< Properties
     int input_count;    ///< Number of elements on input pipelines.
-    int output_count;   ///< Number of elements on output pipelines.
+    int output_count;   ///< Number of elements on output pipelines
+
+    // Events.
+    void (*OnGetInput)(struct DpPipeline* self, struct DpPipeline* input);
+    void (*OnGetOutput)(struct DpPipeline* self, struct DpPipeline* output);
 } DpPipeline;
 
 /// \brief Factory of pipeline.
@@ -75,13 +79,13 @@ gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
 /// \brief Getter input pipeline.
 ///
 /// \return The data element, or NULL if is not found.
-gpointer DpPipelineGetInput(DpPipeline* self, const char* key)
+DpPipeline* DpPipelineGetInput(DpPipeline* self, const char* key)
     __attribute__((nonnull));
 
 /// \brief Getter ouput pipeline.
 ///
 /// \return The data element, or NULL if is not found.
-gpointer DpPipelineGetOutput(DpPipeline* self, const char* key)
+DpPipeline* DpPipelineGetOutput(DpPipeline* self, const char* key)
     __attribute__((nonnull));
 
 /// \brief Returns true is orphan.
@@ -97,6 +101,16 @@ void DpPipelineSetProperty(DpPipeline* self, const char* name_property,
 
 /// \brief Getter a property
 GString* DpPipelineGetProperty(DpPipeline* self, const char* name_property)
+    __attribute__((nonnull));
+
+/// \brief Set observer "GetInput"
+void DpPipelineOnGetInput(DpPipeline* self,
+                          void observer(DpPipeline*, DpPipeline*))
+    __attribute__((nonnull));
+
+/// \brief Set observer "GetOutput"
+void DpPipelineOnGetOutput(DpPipeline* self,
+                           void observer(DpPipeline*, DpPipeline*))
     __attribute__((nonnull));
 
 /*!

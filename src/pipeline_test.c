@@ -100,6 +100,24 @@ static void property_test(void **state) {
     assert_string_equal(value->str, "true");
 }
 
+static int on_get_call = 0;
+static void on_get(DpPipeline *self, DpPipeline *getted) {
+    (void)self;
+    (void)getted;
+    on_get_call++;
+}
+
+static void on_get_test(void **state) {
+    DpPipeline *pipeline = *state;
+    DpPipelineOnGetInput(pipeline, on_get);
+    DpPipelineOnGetOutput(pipeline, on_get);
+
+    DpPipelineGetInput(pipeline, "bar");
+    assert_int_equal(on_get_call, 1);
+    DpPipelineGetOutput(pipeline, "bar");
+    assert_int_equal(on_get_call, 2);
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(push_test, setup, teardown),
@@ -109,6 +127,7 @@ int main(void) {
         cmocka_unit_test_setup_teardown(no_orphan_test, setup_populated,
                                         teardown_populated),
         cmocka_unit_test_setup_teardown(property_test, setup, teardown),
+        cmocka_unit_test_setup_teardown(on_get_test, setup, teardown),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
