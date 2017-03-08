@@ -101,7 +101,7 @@ static void property_test(void **state) {
 }
 
 static int on_get_call = 0;
-static void on_get(DpPipeline *self, DpPipeline *getted) {
+static void on_get(DpPipeline *self, const char *getted) {
     (void)self;
     (void)getted;
     on_get_call++;

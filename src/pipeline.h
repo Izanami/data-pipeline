@@ -24,8 +24,8 @@ typedef struct DpPipeline {
     int output_count;   ///< Number of elements on output pipelines
 
     // Events.
-    void (*OnGetInput)(struct DpPipeline* self, struct DpPipeline* input);
-    void (*OnGetOutput)(struct DpPipeline* self, struct DpPipeline* output);
+    void (*OnGetInput)(struct DpPipeline* self, const char* key);
+    void (*OnGetOutput)(struct DpPipeline* self, const char* key);
 } DpPipeline;
 
 /// \brief Factory of pipeline.
@@ -105,12 +105,12 @@ GString* DpPipelineGetProperty(DpPipeline* self, const char* name_property)
 
 /// \brief Set observer "GetInput"
 void DpPipelineOnGetInput(DpPipeline* self,
-                          void observer(DpPipeline*, DpPipeline*))
+                          void observer(DpPipeline*, const char* key))
     __attribute__((nonnull));
 
 /// \brief Set observer "GetOutput"
 void DpPipelineOnGetOutput(DpPipeline* self,
-                           void observer(DpPipeline*, DpPipeline*))
+                           void observer(DpPipeline*, const char* key))
     __attribute__((nonnull));
 
 /*!
