@@ -36,6 +36,9 @@ typedef struct DpPipeline {
 
     /// \brief Call when DpPipelinePushOutput()
     void (*OnPushOutput)(struct DpPipeline*, const char*);
+
+    /// \brief Call when DpPipelineDestroy()
+    void (*OnDestroy)(struct DpPipeline*);
 } DpPipeline;
 
 /// \brief Factory of pipeline.
@@ -131,6 +134,10 @@ void DpPipelineOnPushOutput(DpPipeline* self,
 /// \brief Set observer "PushOutput"
 void DpPipelineOnPushInput(DpPipeline* self,
                            void observer(DpPipeline*, const char* key))
+    __attribute__((nonnull));
+
+/// \brief Set observer "Destroy"
+void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*))
     __attribute__((nonnull));
 
 /*!

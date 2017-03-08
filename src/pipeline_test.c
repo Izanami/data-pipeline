@@ -143,7 +143,23 @@ static void on_push_test(void **state) {
     assert_int_equal(on_push_call, 2);
 
     DpPipelineDestroy(&pipeline_pushed);
-    (void)pipeline;
+}
+
+static int on_destroy_call = 0;
+static void on_destroy(DpPipeline *self) {
+    (void)self;
+    on_destroy_call++;
+}
+
+static void on_destroy_test(void **state) {
+    (void)state;
+    DpPipeline *pipeline = DpPipelineNew();
+    assert_int_equal(on_destroy_call, 0);
+
+    DpPipelineOnDestroy(pipeline, on_destroy);
+
+    DpPipelineDestroy(&pipeline);
+    assert_int_equal(on_destroy_call, 1);
 }
 
 int main(void) {
@@ -157,6 +173,7 @@ int main(void) {
         cmocka_unit_test_setup_teardown(property_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_get_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_push_test, setup, teardown),
+        cmocka_unit_test_setup_teardown(on_destroy_test, setup, teardown),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

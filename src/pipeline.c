@@ -30,7 +30,8 @@ void DpPipelineCreate(DpPipeline** pipeline) {
 }
 
 void DpPipelineDestroy(DpPipeline** pipeline) {
-    if (*pipeline == NULL) return;
+    if ((*pipeline)->OnDestroy != NULL) (*pipeline)->OnDestroy(*pipeline);
+
     DpPipelineFree(*pipeline);
     g_free(*pipeline);
     *pipeline = NULL;
@@ -48,6 +49,7 @@ void DpPipelineInit(DpPipeline* self) {
     self->OnGetOutput = NULL;
     self->OnPushInput = NULL;
     self->OnPushOutput = NULL;
+    self->OnDestroy = NULL;
 }
 
 void DpPipelineFree(DpPipeline* self) {
@@ -133,4 +135,8 @@ void DpPipelineOnPushOutput(DpPipeline* self,
 void DpPipelineOnPushInput(DpPipeline* self,
                            void observer(DpPipeline*, const char*)) {
     self->OnPushInput = observer;
+}
+
+void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*)) {
+    self->OnDestroy = observer;
 }
