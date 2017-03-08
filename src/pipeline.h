@@ -24,8 +24,18 @@ typedef struct DpPipeline {
     int output_count;   ///< Number of elements on output pipelines
 
     // Events.
-    void (*OnGetInput)(struct DpPipeline* self, const char* key);
-    void (*OnGetOutput)(struct DpPipeline* self, const char* key);
+
+    /// \brief Call when DpPipelineGetInput()
+    void (*OnGetInput)(struct DpPipeline*, const char*);
+
+    /// \brief Call when DpPipelineGetOuput()
+    void (*OnGetOutput)(struct DpPipeline*, const char*);
+
+    /// \brief Call when DpPipelinePushInput()
+    void (*OnPushInput)(struct DpPipeline*, const char*);
+
+    /// \brief Call when DpPipelinePushOutput()
+    void (*OnPushOutput)(struct DpPipeline*, const char*);
 } DpPipeline;
 
 /// \brief Factory of pipeline.
@@ -110,6 +120,16 @@ void DpPipelineOnGetInput(DpPipeline* self,
 
 /// \brief Set observer "GetOutput"
 void DpPipelineOnGetOutput(DpPipeline* self,
+                           void observer(DpPipeline*, const char* key))
+    __attribute__((nonnull));
+
+/// \brief Set observer "PushOutput"
+void DpPipelineOnPushOutput(DpPipeline* self,
+                            void observer(DpPipeline*, const char* key))
+    __attribute__((nonnull));
+
+/// \brief Set observer "PushOutput"
+void DpPipelineOnPushInput(DpPipeline* self,
                            void observer(DpPipeline*, const char* key))
     __attribute__((nonnull));
 

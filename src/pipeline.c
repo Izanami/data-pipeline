@@ -46,6 +46,8 @@ void DpPipelineInit(DpPipeline* self) {
 
     self->OnGetInput = NULL;
     self->OnGetOutput = NULL;
+    self->OnPushInput = NULL;
+    self->OnPushOutput = NULL;
 }
 
 void DpPipelineFree(DpPipeline* self) {
@@ -64,7 +66,7 @@ gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
     g_datalist_set_data(&self->input, key, pipeline_input);
     self->input_count++;
 
-    if (self->OnGetInput != NULL) self->OnGetInput(self, key);
+    if (self->OnPushInput != NULL) self->OnPushInput(self, key);
 
     return TRUE;
 }
@@ -77,7 +79,7 @@ gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
     g_datalist_set_data(&self->output, key, pipeline_output);
     self->output_count++;
 
-    if (self->OnGetOutput != NULL) self->OnGetOutput(self, key);
+    if (self->OnPushOutput != NULL) self->OnPushOutput(self, key);
     return TRUE;
 }
 
@@ -121,4 +123,14 @@ void DpPipelineOnGetInput(DpPipeline* self,
 void DpPipelineOnGetOutput(DpPipeline* self,
                            void observer(DpPipeline*, const char*)) {
     self->OnGetOutput = observer;
+}
+
+void DpPipelineOnPushOutput(DpPipeline* self,
+                            void observer(DpPipeline*, const char*)) {
+    self->OnPushOutput = observer;
+}
+
+void DpPipelineOnPushInput(DpPipeline* self,
+                           void observer(DpPipeline*, const char*)) {
+    self->OnPushInput = observer;
 }

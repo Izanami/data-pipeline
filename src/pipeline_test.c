@@ -118,6 +118,34 @@ static void on_get_test(void **state) {
     assert_int_equal(on_get_call, 2);
 }
 
+static int on_push_call = 0;
+static void on_push(DpPipeline *self, const char *getted) {
+    (void)self;
+    (void)getted;
+    on_push_call++;
+}
+
+static void on_push_test(void **state) {
+    DpPipeline *pipeline = *state;
+    DpPipeline *pipeline_pushed = DpPipelineNew();
+
+    DpPipelinePushInput(pipeline, "buzz", pipeline_pushed);
+    DpPipelinePushOutput(pipeline, "buzz", pipeline_pushed);
+    assert_int_equal(on_push_call, 0);
+
+    DpPipelineOnPushOutput(pipeline, on_push);
+    DpPipelineOnPushInput(pipeline, on_push);
+    assert_int_equal(on_push_call, 0);
+
+    DpPipelinePushOutput(pipeline, "buzz", pipeline_pushed);
+    assert_int_equal(on_push_call, 1);
+    DpPipelinePushInput(pipeline, "buzz", pipeline_pushed);
+    assert_int_equal(on_push_call, 2);
+
+    DpPipelineDestroy(&pipeline_pushed);
+    (void)pipeline;
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(push_test, setup, teardown),
@@ -128,6 +156,7 @@ int main(void) {
                                         teardown_populated),
         cmocka_unit_test_setup_teardown(property_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_get_test, setup, teardown),
+        cmocka_unit_test_setup_teardown(on_push_test, setup, teardown),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
