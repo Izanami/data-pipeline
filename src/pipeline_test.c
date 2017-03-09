@@ -190,11 +190,8 @@ int main(void) {
         cmocka_unit_test_setup_teardown(property_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_get_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_push_test, setup, teardown),
-<<<<<<< HEAD
         cmocka_unit_test_setup_teardown(on_remove_test, setup, teardown),
-=======
         cmocka_unit_test_setup_teardown(on_destroy_test, setup, teardown),
->>>>>>> 5a50293d36f5909e1e161a04e9e1c47096fbf9c1
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
