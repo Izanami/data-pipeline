@@ -12,6 +12,9 @@
 #include "job.h"
 
 /*! \defgroup pipeline Pipeline
+ * \brief « Pipeline » is a primitive type.
+ *
+ * It can be connected to other inputs or outputs.
  *  \{
  */
 
