@@ -122,6 +122,8 @@ void DpPipelineSetProperty(DpPipeline* self, const char* name_property,
     // If not exists, when initialize.
     if (value_str == NULL) {
         value_str = g_string_new(value);
+    } else {
+        g_string_assign(value_str, value);
     }
 
     g_datalist_set_data(&self->properties, name_property, value_str);

@@ -97,7 +97,7 @@ static void property_test(void **state) {
 
     value = DpPipelineGetProperty(pipeline, "buzz");
     assert_non_null(value);
-    assert_string_equal(value->str, "true");
+    assert_string_equal(value->str, "false");
 }
 
 static int on_get_call = 0;
