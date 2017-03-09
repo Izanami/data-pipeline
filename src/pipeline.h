@@ -98,6 +98,12 @@ DpPipeline* DpPipelineGetInput(DpPipeline* self, const char* key)
 DpPipeline* DpPipelineGetOutput(DpPipeline* self, const char* key)
     __attribute__((nonnull));
 
+/// \ brief Remove a input pipeline.
+void DpPipelineRemoveInput(DpPipeline* self, const char* key);
+
+/// \ brief Remove a output pipeline.
+void DpPipelineRemoveOutput(DpPipeline* self, const char* key);
+
 /// \brief Returns true is orphan.
 ///
 /// A orphan is a pipeline who has no input and no ouput

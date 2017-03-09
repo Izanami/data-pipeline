@@ -95,6 +95,16 @@ DpPipeline* DpPipelineGetOutput(DpPipeline* self, const char* key) {
     return output;
 }
 
+void DpPipelineRemoveInput(DpPipeline* self, const char* key) {
+    g_datalist_remove_data(&(self->input), key);
+    self->input_count--;
+}
+
+void DpPipelineRemoveOutput(DpPipeline* self, const char* key) {
+    g_datalist_remove_data(&(self->output), key);
+    self->output_count--;
+}
+
 gboolean DpPipelineIsOrphan(DpPipeline* self) {
     return (self->output_count == 0 && self->input_count == 0);
 }
