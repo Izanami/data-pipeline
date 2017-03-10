@@ -9,7 +9,6 @@
 #define DP_PIPELINE_H_
 
 #include "glib.h"
-#include "job.h"
 
 /*! \defgroup pipeline Pipeline
  * \brief « Pipeline » is a primitive type.
@@ -148,6 +147,12 @@ void DpPipelineOnPushInput(DpPipeline* self,
 /// \brief Set observer "Destroy"
 void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*))
     __attribute__((nonnull));
+
+/// \brief Returns true, if the input pipeline exits
+gboolean DpPipelineIsInputExists(DpPipeline* self, const char* key);
+
+/// \brief Returns true, if the output pipeline exits
+gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key);
 
 /*!
  * \}

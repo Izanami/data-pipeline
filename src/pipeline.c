@@ -152,3 +152,11 @@ void DpPipelineOnPushInput(DpPipeline* self,
 void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*)) {
     self->OnDestroy = observer;
 }
+
+gboolean DpPipelineIsInputExists(DpPipeline* self, const char* key) {
+    return (g_datalist_get_data(&self->input, key) != NULL);
+}
+
+gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key) {
+    return (g_datalist_get_data(&self->output, key) != NULL);
+}

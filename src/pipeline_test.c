@@ -176,7 +176,12 @@ static void on_remove_test(void **state) {
     assert_null(DpPipelineGetOutput(pipeline, "buzz"));
 
     DpPipelineDestroy(&pipeline_pushed);
-    (void)pipeline;
+}
+
+static void on_is_exists(void **state) {
+    DpPipeline *pipeline = *state;
+    assert_true(DpPipelineIsInputExists(pipeline, "input"));
+    assert_true(DpPipelineIsOutputExists(pipeline, "output"));
 }
 
 int main(void) {
@@ -192,6 +197,8 @@ int main(void) {
         cmocka_unit_test_setup_teardown(on_push_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_remove_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_destroy_test, setup, teardown),
+        cmocka_unit_test_setup_teardown(on_is_exists, setup_populated,
+                                        teardown_populated),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
