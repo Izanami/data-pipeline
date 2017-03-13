@@ -72,7 +72,7 @@ DpPipeline* DpPipelineNew(void) __attribute__((warn_unused_result));
 void DpPipelineCreate(DpPipeline**) __attribute__((nonnull));
 
 /// \brief Destructor of pipeline.
-void DpPipelineDestroy(DpPipeline**) __attribute__((nonnull));
+void DpPipelineDestroy(DpPipeline**) __attribute__((nonnull, overloadable));
 
 /// \brief Initialize of pipeline.
 void DpPipelineInit(DpPipeline* self) __attribute__((nonnull));

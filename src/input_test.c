@@ -15,8 +15,7 @@ static int setup(void **state) {
 static int teardown(void **state) {
     DpInput *dp_input = *state;
     (void)dp_input;
-    DpPipelineDestroy(&dp_input->pipeline);
-    g_free(dp_input);
+    DpPipelineDestroy(&dp_input);
     return 0;
 }
 

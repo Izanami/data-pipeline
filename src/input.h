@@ -23,7 +23,7 @@
 #include "pipeline.h"
 
 /*! \defgroup input_pipeline Input
- * \brief File pipeline
+ * \brief Input pipeline
  *
  *  \{
  */
@@ -41,6 +41,9 @@ void DpInputCreate(DpInput**) __attribute__((nonnull));
 
 /// \brief Initialize of input pipeline.
 void DpInputInit(DpInput* self) __attribute__((nonnull));
+
+/// \brief Destroy a input pipeline.
+void DpPipelineDestroy(DpInput**) __attribute__((nonnull, overloadable));
 
 /*!
  * \}

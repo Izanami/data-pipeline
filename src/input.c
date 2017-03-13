@@ -19,14 +19,21 @@
 #include "input.h"
 
 DpInput* DpInputNew(void) {
-    DpInput* dp_input = g_new(DpInput, 1);
-    DpInputCreate(&dp_input);
-    return dp_input;
+    DpInput* input = g_new(DpInput, 1);
+    DpInputCreate(&input);
+    return input;
 }
 
-void DpInputCreate(DpInput** dp_input) {
-    (*dp_input)->pipeline = DpPipelineNew();
-    DpInputInit(*dp_input);
+void DpInputCreate(DpInput** input) {
+    (*input)->pipeline = DpPipelineNew();
+    DpInputInit(*input);
 }
 
 void DpInputInit(DpInput* self) { DpPipelineInit(self->pipeline); }
+
+void __attribute__((overloadable)) DpPipelineDestroy(DpInput** input) {
+    DpPipeline* pipeline = (*input)->pipeline;
+    DpPipelineDestroy(&pipeline);
+    g_free(*input);
+    *input = NULL;
+}

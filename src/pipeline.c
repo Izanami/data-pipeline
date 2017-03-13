@@ -29,7 +29,7 @@ void DpPipelineCreate(DpPipeline** pipeline) {
     DpPipelineInit(*pipeline);
 }
 
-void DpPipelineDestroy(DpPipeline** pipeline) {
+void __attribute__((overloadable)) DpPipelineDestroy(DpPipeline** pipeline) {
     if ((*pipeline)->OnDestroy != NULL) (*pipeline)->OnDestroy(*pipeline);
 
     DpPipelineFree(*pipeline);
