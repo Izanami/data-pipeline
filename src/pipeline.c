@@ -61,8 +61,9 @@ void DpPipelineFree(DpPipeline* self) {
     self->output_count = 0;
 }
 
-gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
-                             DpPipeline* pipeline_input) {
+gboolean __attribute__((overloadable))
+DpPipelinePushInput(DpPipeline* self, const char* key,
+                    DpPipeline* pipeline_input) {
     // Ignore push because a circular dependency is forbidden.
     if (self == pipeline_input) return FALSE;
 
@@ -73,8 +74,9 @@ gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
     return TRUE;
 }
 
-gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
-                              DpPipeline* pipeline_output) {
+gboolean __attribute__((overloadable))
+DpPipelinePushOutput(DpPipeline* self, const char* key,
+                     DpPipeline* pipeline_output) {
     // Ignore push because a circular dependency is forbidden.
     if (self == pipeline_output) return FALSE;
 
@@ -85,38 +87,44 @@ gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
     return TRUE;
 }
 
-DpPipeline* DpPipelineGetInput(DpPipeline* self, const char* key) {
+DpPipeline* __attribute__((overloadable))
+DpPipelineGetInput(DpPipeline* self, const char* key) {
     DpPipeline* input = g_datalist_get_data(&self->input, key);
     if (self->OnGetInput != NULL) self->OnGetInput(self, key);
     return input;
 }
 
-DpPipeline* DpPipelineGetOutput(DpPipeline* self, const char* key) {
+DpPipeline* __attribute__((overloadable))
+DpPipelineGetOutput(DpPipeline* self, const char* key) {
     DpPipeline* output = g_datalist_get_data(&self->output, key);
     if (self->OnGetOutput != NULL) self->OnGetOutput(self, key);
     return output;
 }
 
-void DpPipelineRemoveInput(DpPipeline* self, const char* key) {
+void __attribute__((overloadable))
+DpPipelineRemoveInput(DpPipeline* self, const char* key) {
     g_datalist_remove_data(&(self->input), key);
     self->input_count--;
 }
 
-void DpPipelineRemoveOutput(DpPipeline* self, const char* key) {
+void __attribute__((overloadable))
+DpPipelineRemoveOutput(DpPipeline* self, const char* key) {
     g_datalist_remove_data(&(self->output), key);
     self->output_count--;
 }
 
-gboolean DpPipelineIsOrphan(DpPipeline* self) {
+gboolean __attribute__((overloadable)) DpPipelineIsOrphan(DpPipeline* self) {
     return (self->output_count == 0 && self->input_count == 0);
 }
 
-GString* DpPipelineGetProperty(DpPipeline* self, const char* name_property) {
+GString* __attribute__((overloadable))
+DpPipelineGetProperty(DpPipeline* self, const char* name_property) {
     return g_datalist_get_data(&self->properties, name_property);
 }
 
-void DpPipelineSetProperty(DpPipeline* self, const char* name_property,
-                           char* value) {
+void __attribute__((overloadable))
+DpPipelineSetProperty(DpPipeline* self, const char* name_property,
+                      char* value) {
     GString* value_str = DpPipelineGetProperty(self, name_property);
 
     // If not exists, when initialize.
@@ -129,39 +137,47 @@ void DpPipelineSetProperty(DpPipeline* self, const char* name_property,
     g_datalist_set_data(&self->properties, name_property, value_str);
 }
 
-void DpPipelineOnGetInput(DpPipeline* self,
-                          void observer(DpPipeline*, const char*)) {
+void __attribute__((overloadable))
+DpPipelineOnGetInput(DpPipeline* self,
+                     void observer(DpPipeline*, const char*)) {
     self->OnGetInput = observer;
 }
 
-void DpPipelineOnGetOutput(DpPipeline* self,
-                           void observer(DpPipeline*, const char*)) {
+void __attribute__((overloadable))
+DpPipelineOnGetOutput(DpPipeline* self,
+                      void observer(DpPipeline*, const char*)) {
     self->OnGetOutput = observer;
 }
 
-void DpPipelineOnPushOutput(DpPipeline* self,
-                            void observer(DpPipeline*, const char*)) {
+void __attribute__((overloadable))
+DpPipelineOnPushOutput(DpPipeline* self,
+                       void observer(DpPipeline*, const char*)) {
     self->OnPushOutput = observer;
 }
 
-void DpPipelineOnPushInput(DpPipeline* self,
-                           void observer(DpPipeline*, const char*)) {
+void __attribute__((overloadable))
+DpPipelineOnPushInput(DpPipeline* self,
+                      void observer(DpPipeline*, const char*)) {
     self->OnPushInput = observer;
 }
 
-void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*)) {
+void __attribute__((overloadable))
+DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*)) {
     self->OnDestroy = observer;
 }
 
-void DpPipelineOnUploadedInput(DpPipeline* self, void observer(DpPipeline*)) {
+void __attribute__((overloadable))
+DpPipelineOnUploadedInput(DpPipeline* self, void observer(DpPipeline*)) {
     self->OnUploadedInput = observer;
 }
 
-gboolean DpPipelineIsInputExists(DpPipeline* self, const char* key) {
+gboolean __attribute__((overloadable))
+DpPipelineIsInputExists(DpPipeline* self, const char* key) {
     return (g_datalist_get_data(&self->input, key) != NULL);
 }
 
-gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key) {
+gboolean __attribute__((overloadable))
+DpPipelineIsOutputExists(DpPipeline* self, const char* key) {
     return (g_datalist_get_data(&self->output, key) != NULL);
 }
 
@@ -173,6 +189,6 @@ static void DpPipelineForEachUploaded(GQuark key_id, gpointer data,
     (void)user_data;
 }
 
-void DpPipelineDidUploaded(DpPipeline* self) {
+void __attribute__((overloadable)) DpPipelineDidUploaded(DpPipeline* self) {
     g_datalist_foreach(&(self->output), DpPipelineForEachUploaded, NULL);
 }

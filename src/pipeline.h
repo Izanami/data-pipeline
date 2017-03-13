@@ -88,86 +88,90 @@ void DpPipelineFree(DpPipeline* self) __attribute__((nonnull));
 ///  If the key exists, pipeline is replaced.
 gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
                              DpPipeline* pipeline_input)
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Push pipeline on output channel.
 ///
 ///  If the key exists, pipeline is replaced.
 gboolean DpPipelinePushOutput(DpPipeline* self, const char* key,
                               DpPipeline* pipeline_output)
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Getter input pipeline.
 ///
 /// \return The data element, or NULL if is not found.
 DpPipeline* DpPipelineGetInput(DpPipeline* self, const char* key)
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Getter ouput pipeline.
 ///
 /// \return The data element, or NULL if is not found.
 DpPipeline* DpPipelineGetOutput(DpPipeline* self, const char* key)
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \ brief Remove a input pipeline.
-void DpPipelineRemoveInput(DpPipeline* self, const char* key);
+void DpPipelineRemoveInput(DpPipeline* self, const char* key)
+    __attribute__((nonnull, overloadable));
 
 /// \ brief Remove a output pipeline.
-void DpPipelineRemoveOutput(DpPipeline* self, const char* key);
+void DpPipelineRemoveOutput(DpPipeline* self, const char* key)
+    __attribute__((nonnull, overloadable));
 
 /// \brief Returns true is orphan.
 ///
 /// A orphan is a pipeline who has no input and no ouput
-gboolean DpPipelineIsOrphan(DpPipeline* self) __attribute__((nonnull));
+gboolean DpPipelineIsOrphan(DpPipeline* self)
+    __attribute__((nonnull, overloadable));
 
 /// \brief Setter a property
 ///
 /// The value will be copy.
 void DpPipelineSetProperty(DpPipeline* self, const char* name_property,
-                           char* value) __attribute__((nonnull));
+                           char* value) __attribute__((nonnull, overloadable));
 
 /// \brief Getter a property
 GString* DpPipelineGetProperty(DpPipeline* self, const char* name_property)
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Set observer "GetInput"
 void DpPipelineOnGetInput(DpPipeline* self,
                           void observer(DpPipeline*, const char* key))
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Set observer "GetOutput"
 void DpPipelineOnGetOutput(DpPipeline* self,
                            void observer(DpPipeline*, const char* key))
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Set observer "PushOutput"
 void DpPipelineOnPushOutput(DpPipeline* self,
                             void observer(DpPipeline*, const char* key))
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Set observer "PushOutput"
 void DpPipelineOnPushInput(DpPipeline* self,
                            void observer(DpPipeline*, const char* key))
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Set observer "Destroy"
 void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*))
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Set observer "UploadedInput"
 void DpPipelineOnUploadedInput(DpPipeline* self, void observer(DpPipeline*))
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Returns true, if the input pipeline exits
 gboolean DpPipelineIsInputExists(DpPipeline* self, const char* key)
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Returns true, if the output pipeline exits
 gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key)
-    __attribute__((nonnull));
+    __attribute__((nonnull, overloadable));
 
 /// \brief Side effect, when pipeline is uploaded.
-void DpPipelineDidUploaded(DpPipeline* self) __attribute__((nonnull));
+void DpPipelineDidUploaded(DpPipeline* self)
+    __attribute__((nonnull, overloadable));
 
 /*!
  * \}
