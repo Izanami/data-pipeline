@@ -23,7 +23,6 @@
 #include "pipeline.h"
 
 /*! \defgroup file_pipeline File pipeline.
- * \brief File pipeline
  *
  *  \{
  */

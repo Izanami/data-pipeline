@@ -22,7 +22,7 @@
 #include "glib.h"
 
 /*! \defgroup job Job
- * \brief A "job" is a group of pipelines.
+ * \brief « Job » is a group of pipelines.
  *
  * It is necessary for guarantee free memory.
  * Because, the freed memory can have a circular dependency.
