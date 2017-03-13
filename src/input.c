@@ -18,12 +18,15 @@
 
 #include "input.h"
 
-DpPipeline* DpInputNew(void) {
-    DpPipeline* pipeline = NULL;
-    DpPipelineCreate(&pipeline);
-    return pipeline;
+DpInput* DpInputNew(void) {
+    DpInput* dp_input = g_new(DpInput, 1);
+    DpInputCreate(&dp_input);
+    return dp_input;
 }
 
-void DpInputCreate(DpPipeline** dp_file) { DpPipelineCreate(dp_file); }
+void DpInputCreate(DpInput** dp_input) {
+    (*dp_input)->pipeline = DpPipelineNew();
+    DpInputInit(*dp_input);
+}
 
-void DpInputInit(DpPipeline* self) { DpPipelineInit(self); }
+void DpInputInit(DpInput* self) { DpPipelineInit(self->pipeline); }

@@ -36,7 +36,7 @@ endif()
 include_directories(${GLib_INCLUDE_DIRS})
 
 # Build shared libraries.
-add_library(datapipeline SHARED src/pipeline.c src/job.c src/file.c)
+add_library(datapipeline SHARED src/pipeline.c src/job.c src/file.c src/input.c)
 target_link_libraries(datapipeline ${GLib_LIBRARY})
 
 ###
@@ -46,12 +46,15 @@ enable_testing()
 add_executable(test-pipeline src/pipeline_test.c)
 add_executable(test-job src/job_test.c)
 add_executable(test-file src/file_test.c)
+add_executable(test-input src/input_test.c)
 target_link_libraries(test-pipeline datapipeline ${CMOCKA_LIBRARY})
 target_link_libraries(test-job datapipeline ${CMOCKA_LIBRARY})
 target_link_libraries(test-file datapipeline ${CMOCKA_LIBRARY})
+target_link_libraries(test-input datapipeline ${CMOCKA_LIBRARY})
 add_test(test-pipeline test-pipeline)
 add_test(test-job test-job)
 add_test(test-file test-file)
+add_test(test-input test-input)
 
 ###
 # DOCUMENTATION
