@@ -28,7 +28,10 @@
  *  \{
  */
 
-typedef struct { DpPipeline* pipeline; } DpInput;
+/// \brief Input pipeline class.
+typedef struct {
+    DpPipeline* pipeline;  ///< \brief Parent class.
+} DpInput;
 
 /// \brief Factory of input pipeline.
 DpInput* DpInputNew(void) __attribute__((warn_unused_result));
