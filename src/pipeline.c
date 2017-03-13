@@ -50,6 +50,7 @@ void DpPipelineInit(DpPipeline* self) {
     self->OnPushInput = NULL;
     self->OnPushOutput = NULL;
     self->OnDestroy = NULL;
+    self->OnUploadedInput = NULL;
 }
 
 void DpPipelineFree(DpPipeline* self) {
@@ -69,7 +70,6 @@ gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
     self->input_count++;
 
     if (self->OnPushInput != NULL) self->OnPushInput(self, key);
-
     return TRUE;
 }
 
@@ -153,10 +153,26 @@ void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*)) {
     self->OnDestroy = observer;
 }
 
+void DpPipelineOnUploadedInput(DpPipeline* self, void observer(DpPipeline*)) {
+    self->OnUploadedInput = observer;
+}
+
 gboolean DpPipelineIsInputExists(DpPipeline* self, const char* key) {
     return (g_datalist_get_data(&self->input, key) != NULL);
 }
 
 gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key) {
     return (g_datalist_get_data(&self->output, key) != NULL);
+}
+
+static void DpPipelineForEachUploaded(GQuark key_id, gpointer data,
+                                      gpointer user_data) {
+    DpPipeline* pipeline = data;
+    if (pipeline->OnUploadedInput != NULL) pipeline->OnUploadedInput(pipeline);
+    (void)key_id;
+    (void)user_data;
+}
+
+void DpPipelineDidUploaded(DpPipeline* self) {
+    g_datalist_foreach(&(self->output), DpPipelineForEachUploaded, NULL);
 }

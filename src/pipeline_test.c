@@ -178,10 +178,28 @@ static void on_remove_test(void **state) {
     DpPipelineDestroy(&pipeline_pushed);
 }
 
-static void on_is_exists(void **state) {
+static void on_is_exists_test(void **state) {
     DpPipeline *pipeline = *state;
     assert_true(DpPipelineIsInputExists(pipeline, "input"));
     assert_true(DpPipelineIsOutputExists(pipeline, "output"));
+}
+
+static int on_did_uploaded_call = 0;
+static void on_did_uploaded(DpPipeline *self) {
+    (void)self;
+    on_did_uploaded_call++;
+}
+
+static void did_uploaded_test(void **state) {
+    DpPipeline *pipeline = *state;
+    DpPipeline *output = DpPipelineGetOutput(pipeline, "output");
+    assert_non_null(output);
+
+    assert_int_equal(on_did_uploaded_call, 0);
+    DpPipelineOnUploadedInput(output, on_did_uploaded);
+
+    DpPipelineDidUploaded(pipeline);
+    assert_int_equal(on_did_uploaded_call, 1);
 }
 
 int main(void) {
@@ -197,7 +215,9 @@ int main(void) {
         cmocka_unit_test_setup_teardown(on_push_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_remove_test, setup, teardown),
         cmocka_unit_test_setup_teardown(on_destroy_test, setup, teardown),
-        cmocka_unit_test_setup_teardown(on_is_exists, setup_populated,
+        cmocka_unit_test_setup_teardown(on_is_exists_test, setup_populated,
+                                        teardown_populated),
+        cmocka_unit_test_setup_teardown(did_uploaded_test, setup_populated,
                                         teardown_populated),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);

@@ -41,6 +41,9 @@ typedef struct DpPipeline {
 
     /// \brief Call when DpPipelineDestroy()
     void (*OnDestroy)(struct DpPipeline*);
+
+    /// \brief Call when input pipeline uploaded.
+    void (*OnUploadedInput)(struct DpPipeline*);
 } DpPipeline;
 
 /// \brief Factory of pipeline.
@@ -148,11 +151,20 @@ void DpPipelineOnPushInput(DpPipeline* self,
 void DpPipelineOnDestroy(DpPipeline* self, void observer(DpPipeline*))
     __attribute__((nonnull));
 
+/// \brief Set observer "UploadedInput"
+void DpPipelineOnUploadedInput(DpPipeline* self, void observer(DpPipeline*))
+    __attribute__((nonnull));
+
 /// \brief Returns true, if the input pipeline exits
-gboolean DpPipelineIsInputExists(DpPipeline* self, const char* key);
+gboolean DpPipelineIsInputExists(DpPipeline* self, const char* key)
+    __attribute__((nonnull));
 
 /// \brief Returns true, if the output pipeline exits
-gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key);
+gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key)
+    __attribute__((nonnull));
+
+/// \brief Side effect, when pipeline is uploaded.
+void DpPipelineDidUploaded(DpPipeline* self) __attribute__((nonnull));
 
 /*!
  * \}
