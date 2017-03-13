@@ -43,7 +43,10 @@ void DpInputCreate(DpInput**) __attribute__((nonnull));
 void DpInputInit(DpInput* self) __attribute__((nonnull));
 
 /// \brief Destroy a input pipeline.
+/// \name DpPipelineDestroy
+/// \{
 void DpPipelineDestroy(DpInput**) __attribute__((nonnull, overloadable));
+/// \}
 
 /*!
  * \}

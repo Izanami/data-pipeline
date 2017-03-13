@@ -71,8 +71,12 @@ DpPipeline* DpPipelineNew(void) __attribute__((warn_unused_result));
 /// Pipeline MUST freed with DpPipelineDestroy().
 void DpPipelineCreate(DpPipeline**) __attribute__((nonnull));
 
-/// \brief Destructor of pipeline.
+//
+/// \brief Destroy a pipeline.
+/// \name DpPipelineDestroy
+/// \{
 void DpPipelineDestroy(DpPipeline**) __attribute__((nonnull, overloadable));
+/// \}
 
 /// \brief Initialize of pipeline.
 void DpPipelineInit(DpPipeline* self) __attribute__((nonnull));
