@@ -31,10 +31,10 @@
 /// \brief Factory of input pipeline.
 DpPipeline* DpInputNew(void) __attribute__((warn_unused_result));
 
-// \brief Constructor of input pipeline.
+/// \brief Constructor of input pipeline.
 void DpInputCreate(DpPipeline**) __attribute__((nonnull));
 
-// \brief Initialize of input pipeline.
+/// \brief Initialize of input pipeline.
 void DpInputInit(DpPipeline* self) __attribute__((nonnull));
 
 /*!
