@@ -18,10 +18,11 @@
  */
 
 /*! \defgroup job Job
- * \brief A "job" is a group of pipelines.
+ *  \brief A "job" is a group of pipelines.
  *
  * It is necessary for guarantee free memory.
  * Because, the freed memory can have a circular dependency.
+ *
  *  \{
  */
 
@@ -30,7 +31,7 @@
 
 #include "pipeline.h"
 
-/*! \defgroup file File
+/*! \defgroup file_pipeline File
  * \brief File pipeline
  *
  *  \{
@@ -39,10 +40,10 @@
 /// \brief Factory of file pipeline.
 DpPipeline* DpFileNew(void) __attribute__((warn_unused_result));
 
-/// \brief Constructor of file pipeline.
+// \brief Constructor of file pipeline.
 void DpFileCreate(DpPipeline**) __attribute__((nonnull));
 
-/// \brief Initialize of file pipeline.
+// \brief Initialize of file pipeline.
 void DpFileInit(DpPipeline* self) __attribute__((nonnull));
 
 /*!
