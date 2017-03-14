@@ -47,6 +47,9 @@ void DpPipelineDestroy(DpInput**)
                    overloadable  /// Attribute : Overload
                    ));
 
+/// \brief Returns parents class
+DpPipeline* DpInputParent(DpInput*);
+
 /*!
  * \}
  */

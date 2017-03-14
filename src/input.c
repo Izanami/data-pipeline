@@ -37,3 +37,5 @@ void __attribute__((overloadable)) DpPipelineDestroy(DpInput** input) {
     g_free(*input);
     *input = NULL;
 }
+
+DpPipeline* DpInputParent(DpInput* self) { return (self->pipeline); }
