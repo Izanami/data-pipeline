@@ -37,10 +37,10 @@ typedef struct {
 DpInput* DpInputNew(void) __attribute__((warn_unused_result));
 
 /// \brief Constructor of input pipeline.
-void DpInputCreate(DpInput**) __attribute__((nonnull));
+void DpPipelineCreate(DpInput**) __attribute__((nonnull, overloadable));
 
 /// \brief Initialize of input pipeline.
-void DpInputInit(DpInput* self) __attribute__((nonnull));
+void DpPipelineInit(DpInput* self) __attribute__((nonnull, overloadable));
 
 /// \brief Destroy a input pipeline.
 void DpPipelineDestroy(DpInput**)

@@ -69,7 +69,7 @@ DpPipeline* DpPipelineNew(void) __attribute__((warn_unused_result));
 /// You SHOULD NOT used. Prefer DpJobPipelineNew().
 ///
 /// Pipeline MUST freed with DpPipelineDestroy().
-void DpPipelineCreate(DpPipeline**) __attribute__((nonnull));
+void DpPipelineCreate(DpPipeline**) __attribute__((nonnull, overloadable));
 
 /// \brief Destroy a pipeline.
 void DpPipelineDestroy(DpPipeline**)
@@ -78,10 +78,10 @@ void DpPipelineDestroy(DpPipeline**)
                    ));
 
 /// \brief Initialize of pipeline.
-void DpPipelineInit(DpPipeline* self) __attribute__((nonnull));
+void DpPipelineInit(DpPipeline* self) __attribute__((nonnull, overloadable));
 
 /// \brief Deallocation memory of data in pipeline.
-void DpPipelineFree(DpPipeline* self) __attribute__((nonnull));
+void DpPipelineFree(DpPipeline* self) __attribute__((nonnull, overloadable));
 
 /// \brief Push pipeline on inputs channel.
 ///

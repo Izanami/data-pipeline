@@ -24,7 +24,7 @@ DpPipeline* DpPipelineNew(void) {
     return pipeline;
 }
 
-void DpPipelineCreate(DpPipeline** pipeline) {
+void __attribute__((overloadable)) DpPipelineCreate(DpPipeline** pipeline) {
     *pipeline = g_new(DpPipeline, 1);
     DpPipelineInit(*pipeline);
 }
@@ -37,7 +37,7 @@ void __attribute__((overloadable)) DpPipelineDestroy(DpPipeline** pipeline) {
     *pipeline = NULL;
 }
 
-void DpPipelineInit(DpPipeline* self) {
+void __attribute__((overloadable)) DpPipelineInit(DpPipeline* self) {
     g_datalist_init(&(self->input));
     g_datalist_init(&(self->output));
     g_datalist_init(&(self->properties));
@@ -53,7 +53,7 @@ void DpPipelineInit(DpPipeline* self) {
     self->OnUploadedInput = NULL;
 }
 
-void DpPipelineFree(DpPipeline* self) {
+void __attribute__((overloadable)) DpPipelineFree(DpPipeline* self) {
     g_datalist_clear(&(self->input));
     g_datalist_clear(&(self->output));
     g_datalist_clear(&(self->properties));

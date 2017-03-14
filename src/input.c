@@ -19,17 +19,18 @@
 #include "input.h"
 
 DpInput* DpInputNew(void) {
-    DpInput* input = g_new(DpInput, 1);
-    DpInputCreate(&input);
+    DpInput* input = NULL;
+    DpPipelineCreate(&input);
     return input;
 }
 
-void DpInputCreate(DpInput** input) {
+void __attribute__((overloadable)) DpPipelineCreate(DpInput** input) {
+    *input = g_new(DpInput, 1);
     (*input)->pipeline = DpPipelineNew();
-    DpInputInit(*input);
+    DpPipelineInit(*input);
 }
 
-void DpInputInit(DpInput* self) {
+void __attribute__((overloadable)) DpPipelineInit(DpInput* self) {
     DpPipelineInit(self->pipeline);
     self->value = g_string_sized_new(60);
 }
