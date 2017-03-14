@@ -29,7 +29,10 @@ void DpInputCreate(DpInput** input) {
     DpInputInit(*input);
 }
 
-void DpInputInit(DpInput* self) { DpPipelineInit(self->pipeline); }
+void DpInputInit(DpInput* self) {
+    DpPipelineInit(self->pipeline);
+    self->value = g_string_sized_new(60);
+}
 
 void __attribute__((overloadable)) DpPipelineDestroy(DpInput** input) {
     DpPipeline* pipeline = (*input)->pipeline;
@@ -39,3 +42,9 @@ void __attribute__((overloadable)) DpPipelineDestroy(DpInput** input) {
 }
 
 DpPipeline* DpInputParent(DpInput* self) { return (self->pipeline); }
+
+void DpInputAssign(DpInput* self, const char* value) {
+    g_string_assign(self->value, value);
+}
+
+const char* DpInputGet(DpInput* self) { return self->value->str; }

@@ -13,17 +13,22 @@ static int setup(void **state) {
 }
 
 static int teardown(void **state) {
-    DpInput *dp_input = *state;
-    (void)dp_input;
-    DpPipelineDestroy(&dp_input);
+    DpInput *input = *state;
+    DpPipelineDestroy(&input);
     return 0;
 }
 
 static void null_test(void **state) { (void)state; }
 
+static void assign_test(void **state) {
+    DpInput *input = *state;
+    DpInputAssign(input, "buzz");
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(null_test, setup, teardown),
+        cmocka_unit_test_setup_teardown(assign_test, setup, teardown),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
