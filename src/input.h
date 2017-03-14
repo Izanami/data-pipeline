@@ -30,7 +30,7 @@
 /// \brief Input pipeline class.
 typedef struct {
     DpPipeline* pipeline;  ///< \brief Parent class.
-    GString* value;        /// \brief String outputed.
+    GString* value;        ///< \brief String outputed.
 } DpInput;
 
 /// \brief Factory of input pipeline.
@@ -50,7 +50,9 @@ void DpPipelineDestroy(DpInput**)
 
 /// \brief Returns parents class
 DpPipeline* DpInputParent(DpInput*)
-    __attribute__((nonnull, warn_unused_result));
+    __attribute__((nonnull,
+                   warn_unused_result  /// Attribute : result must used.
+                   ));
 
 /// \brief Assign value.
 void DpInputAssign(DpInput* self, const char* value) __attribute__((nonnull));
