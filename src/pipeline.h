@@ -17,6 +17,11 @@
  *  \{
  */
 
+#define DP_NEW_CLASS(TYPENAME)                                                \
+    void DpPipelineCreate(TYPENAME**) __attribute__((nonnull, overloadable)); \
+    void DpPipelineInit(TYPENAME*) __attribute__((nonnull, overloadable));    \
+    void DpPipelineDestroy(TYPENAME**) __attribute__((nonnull, overloadable));
+
 /// \brief Pipeline class.
 typedef struct DpPipeline {
     GData* input;       ///< Input pipelines.
@@ -86,6 +91,10 @@ void DpPipelineFree(DpPipeline* self) __attribute__((nonnull, overloadable));
 /// \brief Push pipeline on inputs channel.
 ///
 ///  If the key exists, pipeline is replaced.
+gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
+                             DpPipeline* pipeline_input)
+    __attribute__((nonnull, overloadable));
+
 gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
                              DpPipeline* pipeline_input)
     __attribute__((nonnull, overloadable));
