@@ -30,7 +30,6 @@
 /// \brief Input pipeline class.
 typedef struct {
     DpPipeline* pipeline;  ///< \brief Parent class.
-    GString* value;        ///< \brief String outputed.
 } DpInput;
 
 /// \brief Factory of input pipeline.
@@ -46,11 +45,10 @@ DpPipeline* DpInputParent(DpInput*)
                    ));
 
 /// \brief Assign value.
-void DpInputAssign(DpInput* self, const char* value) __attribute__((nonnull));
+void DpInputAssign(DpInput* self, char* value) __attribute__((nonnull));
 
 /// \brief Returns pointer to character data.
-const char* DpInputGet(DpInput* self)
-    __attribute__((nonnull, warn_unused_result));
+GString* DpInputGet(DpInput* self) __attribute__((nonnull, warn_unused_result));
 
 /*!
  * \}

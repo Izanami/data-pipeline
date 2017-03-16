@@ -32,7 +32,7 @@ void __attribute__((overloadable)) DpPipelineCreate(DpInput** input) {
 
 void __attribute__((overloadable)) DpPipelineInit(DpInput* self) {
     DpPipelineInit(self->pipeline);
-    self->value = g_string_sized_new(60);
+    DpPipelineSetProperty(self->pipeline, "value", "");
 }
 
 void __attribute__((overloadable)) DpPipelineDestroy(DpInput** input) {
@@ -44,8 +44,10 @@ void __attribute__((overloadable)) DpPipelineDestroy(DpInput** input) {
 
 DpPipeline* DpInputParent(DpInput* self) { return (self->pipeline); }
 
-void DpInputAssign(DpInput* self, const char* value) {
-    g_string_assign(self->value, value);
+void DpInputAssign(DpInput* self, char* value) {
+    DpPipelineSetProperty(self->pipeline, "value", value);
 }
 
-const char* DpInputGet(DpInput* self) { return self->value->str; }
+GString* DpInputGet(DpInput* self) {
+    return DpPipelineGetProperty(self->pipeline, "value");
+}

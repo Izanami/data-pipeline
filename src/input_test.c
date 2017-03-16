@@ -23,7 +23,7 @@ static void null_test(void **state) { (void)state; }
 static void assign_test(void **state) {
     DpInput *input = *state;
     DpInputAssign(input, "buzz");
-    assert_string_equal(DpInputGet(input), "buzz");
+    assert_string_equal(DpInputGet(input)->str, "buzz");
 }
 
 int main(void) {
