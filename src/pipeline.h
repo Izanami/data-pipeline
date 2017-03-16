@@ -96,10 +96,6 @@ gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
                              DpPipeline* pipeline_input)
     __attribute__((nonnull, overloadable));
 
-gboolean DpPipelinePushInput(DpPipeline* self, const char* key,
-                             DpPipeline* pipeline_input)
-    __attribute__((nonnull, overloadable));
-
 /// \brief Push pipeline on output channel.
 ///
 ///  If the key exists, pipeline is replaced.
