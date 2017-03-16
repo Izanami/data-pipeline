@@ -17,6 +17,7 @@
  *  \{
  */
 
+/// \brief Create a new pipeline.
 #define DP_NEW_CLASS(TYPENAME)                                                \
     void DpPipelineCreate(TYPENAME**) __attribute__((nonnull, overloadable)); \
     void DpPipelineInit(TYPENAME*) __attribute__((nonnull, overloadable));    \
