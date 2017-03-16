@@ -27,18 +27,17 @@
  *  \{
  */
 
+/// \brief File pipeline class.
+typedef struct {
+    DpPipeline* pipeline;  ///< \brief Parent class.
+} DpFile;
+
 /// \brief Factory of file pipeline.
 DpPipeline* DpFileNew(void) __attribute__((warn_unused_result));
 
-/// \brief Constructor of file pipeline.
-void DpFileCreate(DpPipeline**) __attribute__((nonnull));
+/// \brief Define new file pipeline.
+DP_NEW_CLASS(DpFile)
 
-/// \brief Initialize of file pipeline.
-void DpFileInit(DpPipeline* self) __attribute__((nonnull));
-
-/*!
- * \}
- */
 /*!
  * \}
  */

@@ -24,6 +24,19 @@ DpPipeline* DpFileNew(void) {
     return pipeline;
 }
 
-void DpFileCreate(DpPipeline** dp_file) { DpPipelineCreate(dp_file); }
+void __attribute__((overloadable)) DpPipelineCreate(DpFile** file) {
+    *file = g_new(DpFile, 1);
+    (*file)->pipeline = DpPipelineNew();
+    DpPipelineInit(*file);
+}
 
-void DpFileInit(DpPipeline* self) { DpPipelineInit(self); }
+void __attribute__((overloadable)) DpPipelineInit(DpFile* self) {
+    DpPipelineInit(self->pipeline);
+}
+
+void __attribute__((overloadable)) DpPipelineDestroy(DpFile** file) {
+    DpPipeline* pipeline = (*file)->pipeline;
+    DpPipelineDestroy(&pipeline);
+    g_free(*file);
+    *file = NULL;
+}
