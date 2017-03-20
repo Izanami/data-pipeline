@@ -50,6 +50,9 @@ typedef struct DpPipeline {
 
     /// \brief Call when input pipeline uploaded.
     void (*OnUploadedInput)(struct DpPipeline*);
+
+    /// \brief Returns the pipeline on string type.
+    GString* (*Get)(struct DpPipeline*);
 } DpPipeline;
 
 /// \brief Factory of pipeline.
@@ -177,6 +180,16 @@ gboolean DpPipelineIsOutputExists(DpPipeline* self, const char* key)
 
 /// \brief Side effect, when pipeline is uploaded.
 void DpPipelineDidUploaded(DpPipeline* self)
+    __attribute__((nonnull, overloadable));
+
+/// \brief Side effect, when pipeline is uploaded.
+void DpPipelineDidUploaded(DpPipeline* self)
+    __attribute__((nonnull, overloadable));
+
+/// \brief Convert pipeline on string type.
+///
+/// If fail, returns false.
+gboolean DpPipelineToStr(DpPipeline* self, GString* string)
     __attribute__((nonnull, overloadable));
 
 /*!

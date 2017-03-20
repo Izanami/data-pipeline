@@ -53,10 +53,6 @@ GString* DpInputGet(DpInput* self) __attribute__((overloadable,
                                                   ,
                                                   warn_unused_result));
 
-/// \brief Returns pointer to character data.
-GString* DpInputGet(DpPipeline* self)
-    __attribute__((overloadable, nonnull, warn_unused_result));
-
 /*!
  * \}
  */

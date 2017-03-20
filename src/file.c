@@ -47,11 +47,17 @@ DpPipelinePushInput(DpFile* self, const char* key, DpInput* input) {
     DpPipelinePushInput(self->pipeline, key, input->pipeline);
     if (g_strcmp0("path", key) == 0) {
         self->path = input->pipeline;
-        self->GetPath = DpInputGet;
+        self->GetPath = self->pipeline->Get;
         return TRUE;
     }
 
     return FALSE;
 }
 
-GString* DpFileGetPath(DpFile* self) { return self->GetPath(self->path); }
+GString* DpFileGetPath(DpFile* self) {
+    if (self->path != NULL && self->GetPath != NULL) {
+        return self->GetPath(self->path);
+    } else {
+        return g_string_new("");
+    }
+}

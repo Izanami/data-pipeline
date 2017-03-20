@@ -51,6 +51,8 @@ void __attribute__((overloadable)) DpPipelineInit(DpPipeline* self) {
     self->OnPushOutput = NULL;
     self->OnDestroy = NULL;
     self->OnUploadedInput = NULL;
+
+    self->Get = NULL;
 }
 
 void __attribute__((overloadable)) DpPipelineFree(DpPipeline* self) {
@@ -191,4 +193,14 @@ static void DpPipelineForEachUploaded(GQuark key_id, gpointer data,
 
 void __attribute__((overloadable)) DpPipelineDidUploaded(DpPipeline* self) {
     g_datalist_foreach(&(self->output), DpPipelineForEachUploaded, NULL);
+}
+
+gboolean __attribute__((overloadable))
+DpPipelineToStr(DpPipeline* self, GString* string) {
+    if (self->Get != NULL) {
+        g_string_assign(string, self->Get(self)->str);
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
