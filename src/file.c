@@ -44,6 +44,7 @@ void __attribute__((overloadable)) DpPipelineDestroy(DpFile** file) {
 
 gboolean __attribute__((overloadable))
 DpPipelinePushInput(DpFile* self, const char* key, DpInput* input) {
+    DpPipelinePushInput(self->pipeline, key, input->pipeline);
     if (g_strcmp0("path", key) == 0) {
         self->path = input->pipeline;
         self->GetPath = DpInputGet;
