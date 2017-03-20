@@ -32,6 +32,7 @@ void __attribute__((overloadable)) DpPipelineCreate(DpFile** file) {
 
 void __attribute__((overloadable)) DpPipelineInit(DpFile* self) {
     DpPipelineInit(self->pipeline);
+    self->GetPath = NULL;
 }
 
 void __attribute__((overloadable)) DpPipelineDestroy(DpFile** file) {
@@ -40,3 +41,16 @@ void __attribute__((overloadable)) DpPipelineDestroy(DpFile** file) {
     g_free(*file);
     *file = NULL;
 }
+
+gboolean __attribute__((overloadable))
+DpPipelinePushInput(DpFile* self, const char* key, DpInput* input) {
+    if (g_strcmp0("path", key) == 0) {
+        self->path = input->pipeline;
+        self->GetPath = DpInputGet;
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+GString* DpFileGetPath(DpFile* self) { return self->GetPath(self->path); }

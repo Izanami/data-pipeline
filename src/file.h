@@ -20,6 +20,7 @@
 #ifndef DP_FILE_H_
 #define DP_FILE_H_
 
+#include "input.h"
 #include "pipeline.h"
 
 /*! \defgroup file_pipeline File pipeline.
@@ -29,7 +30,9 @@
 
 /// \brief File pipeline class.
 typedef struct {
-    DpPipeline* pipeline;  ///< \brief Parent class.
+    DpPipeline* pipeline;              ///< \brief Parent class.
+    DpPipeline* path;                  ///< \brief Path class.
+    GString* (*GetPath)(DpPipeline*);  ///< \brief Fonction to get the path.
 } DpFile;
 
 /// \brief Factory of file pipeline.
@@ -37,6 +40,13 @@ DpFile* DpFileNew(void) __attribute__((warn_unused_result));
 
 /// \brief Define new file pipeline.
 DP_NEW_CLASS(DpFile)
+
+/// \brief Push a input pipeline in file pipeliene.
+gboolean DpPipelinePushInput(DpFile* self, const char* key, DpInput* input)
+    __attribute__((nonnull, overloadable));
+
+/// \brief Returns the path.
+GString* DpFileGetPath(DpFile* self);
 
 /*!
  * \}

@@ -48,6 +48,10 @@ void DpInputAssign(DpInput* self, char* value) {
     DpPipelineSetProperty(self->pipeline, "value", value);
 }
 
-GString* DpInputGet(DpInput* self) {
-    return DpPipelineGetProperty(self->pipeline, "value");
+GString* __attribute__((overloadable)) DpInputGet(DpInput* self) {
+    return DpInputGet(self->pipeline);
+}
+
+GString* __attribute__((overloadable)) DpInputGet(DpPipeline* self) {
+    return DpPipelineGetProperty(self, "value");
 }

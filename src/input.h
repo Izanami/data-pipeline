@@ -48,7 +48,14 @@ DpPipeline* DpInputParent(DpInput*)
 void DpInputAssign(DpInput* self, char* value) __attribute__((nonnull));
 
 /// \brief Returns pointer to character data.
-GString* DpInputGet(DpInput* self) __attribute__((nonnull, warn_unused_result));
+GString* DpInputGet(DpInput* self) __attribute__((overloadable,
+                                                  nonnull  ///< Nonnull
+                                                  ,
+                                                  warn_unused_result));
+
+/// \brief Returns pointer to character data.
+GString* DpInputGet(DpPipeline* self)
+    __attribute__((overloadable, nonnull, warn_unused_result));
 
 /*!
  * \}
