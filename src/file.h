@@ -33,7 +33,7 @@ typedef struct {
 } DpFile;
 
 /// \brief Factory of file pipeline.
-DpPipeline* DpFileNew(void) __attribute__((warn_unused_result));
+DpFile* DpFileNew(void) __attribute__((warn_unused_result));
 
 /// \brief Define new file pipeline.
 DP_NEW_CLASS(DpFile)

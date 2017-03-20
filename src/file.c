@@ -18,10 +18,10 @@
 
 #include "file.h"
 
-DpPipeline* DpFileNew(void) {
-    DpPipeline* pipeline = NULL;
-    DpPipelineCreate(&pipeline);
-    return pipeline;
+DpFile* DpFileNew(void) {
+    DpFile* file = NULL;
+    DpPipelineCreate(&file);
+    return file;
 }
 
 void __attribute__((overloadable)) DpPipelineCreate(DpFile** file) {

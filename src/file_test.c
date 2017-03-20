@@ -7,14 +7,15 @@
 #include "file.h"
 
 static int setup(void **state) {
-    DpPipeline *pipeline = DpFileNew();
-    *state = pipeline;
+    DpFile *file = DpFileNew();
+    *state = file;
     return 0;
 }
 
 static int teardown(void **state) {
-    DpPipeline *pipeline = *state;
-    DpPipelineDestroy(&pipeline);
+    DpFile *file = *state;
+    DpPipelineDestroy(&file);
+    (void)state;
     return 0;
 }
 
