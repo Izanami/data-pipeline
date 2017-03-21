@@ -55,3 +55,16 @@ pages:
     - public
   only:
   - master
+
+deploy_library:
+  stage: deploy
+  script:
+  - ninja
+  environment:
+    name: production
+    url: https://framagit.org/jeser/Data-Pipeline/builds/artifacts/master/file/build/libdatapipeline.so?job=deploy_library
+  artifacts:
+    paths:
+    - build/libdatapipeline.so
+  only:
+  - master
