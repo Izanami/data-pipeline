@@ -56,7 +56,8 @@ void DpStoreFree(DpStore* self) { (void)self; }
 
 gboolean DpStoreIs(DpStore* self, DpType type) { return (self->type == type); }
 
-gboolean __attribute__((overloadable)) DpStoreSame(DpStore* self, int* value) {
+gboolean __attribute__((overloadable))
+DpStoreSame(DpStore* self, const int* value) {
     (void)value;
     return (self->type == kInteger);
 }

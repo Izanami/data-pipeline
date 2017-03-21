@@ -61,7 +61,7 @@ void DpStoreFree(DpStore* self) __attribute__((nonnull));
 gboolean DpStoreIs(DpStore* self, DpType) __attribute__((nonnull));
 
 /// \brief Returns true, if type data is same.
-gboolean DpStoreSame(DpStore* self, int*)
+gboolean DpStoreSame(DpStore* self, const int*)
     __attribute__((nonnull, overloadable));
 
 /*!
