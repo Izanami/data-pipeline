@@ -56,14 +56,12 @@ pages:
   only:
   - master
 
-library:
+deploy_library:
   stage: deploy
   script:
   - ninja
-  - mkdir public
-  - mv libdatapipeline.so public
   artifacts:
     paths:
-    - build/public
+    - build/libdatapipeline.so
   only:
   - master
