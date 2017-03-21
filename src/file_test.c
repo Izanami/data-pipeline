@@ -25,8 +25,8 @@ static void input_test(void **state) {
     DpInput *input = DpInputNew();
     DpInputAssign(input, "fum");
 
-    DpPipelinePushInput(file, "path", input);
-    DpFileGetPath(file);
+    DpPipelinePushInput(file->pipeline, "path", input->pipeline);
+    /*DpFileGetPath(file);*/
     /*assert_string_equal(DpFileGetPath(file)->str, "fum");*/
 
     DpPipelineDestroy(&input);

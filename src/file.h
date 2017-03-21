@@ -41,13 +41,6 @@ DpFile* DpFileNew(void) __attribute__((warn_unused_result));
 /// \brief Define new file pipeline.
 DP_NEW_CLASS(DpFile)
 
-/// \brief Push a input pipeline in file pipeliene.
-gboolean DpPipelinePushInput(DpFile* self, const char* key, DpInput* input)
-    __attribute__((nonnull, overloadable));
-
-/// \brief Returns the path.
-GString* DpFileGetPath(DpFile* self);
-
 /*!
  * \}
  */
