@@ -28,7 +28,9 @@ typedef struct {
 
 /// \brief Factory of store.
 DpStore* DpStoreNew(DpType type, void* data)
-    __attribute__((warn_unused_result, overloadable));
+    __attribute__((warn_unused_result,
+                   overloadable  /// Overloadable
+                   ));
 
 /// \brief Factory of store, with integer.
 DpStore* DpStoreNew(int* data)
@@ -56,7 +58,10 @@ void DpStoreInit(DpStore* self, DpType type, void* data)
 void DpStoreFree(DpStore* self) __attribute__((nonnull));
 
 /// \brief Returns true, if type data is same.
-gboolean DpStoreSame(DpStore* self, DpType)
+gboolean DpStoreIs(DpStore* self, DpType) __attribute__((nonnull));
+
+/// \brief Returns true, if type data is same.
+gboolean DpStoreSame(DpStore* self, int*)
     __attribute__((nonnull, overloadable));
 
 /*!

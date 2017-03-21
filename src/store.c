@@ -54,6 +54,9 @@ void DpStoreInit(DpStore* self, DpType type, void* data) {
 
 void DpStoreFree(DpStore* self) { (void)self; }
 
-gboolean __attribute__((overloadable)) DpStoreSame(DpStore* self, DpType type) {
-    return (self->type == type);
+gboolean DpStoreIs(DpStore* self, DpType type) { return (self->type == type); }
+
+gboolean __attribute__((overloadable)) DpStoreSame(DpStore* self, int* value) {
+    (void)value;
+    return (self->type == kInteger);
 }
