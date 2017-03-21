@@ -57,8 +57,6 @@ typedef struct DpPipeline {
 
 /// \brief Factory of pipeline.
 ///
-/// You SHOULD NOT used. Prefer DpJobPipelineNew().
-//
 /// Pipeline MUST freed with DpPipelineDestroy().
 ///
 /// Example:
