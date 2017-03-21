@@ -64,6 +64,6 @@ library:
   - mv libdatapipeline.so public
   artifacts:
     paths:
-    - public
+    - build/public
   only:
   - master
