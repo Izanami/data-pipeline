@@ -24,6 +24,18 @@ DpFile* DpFileNew(void) {
     return file;
 }
 
+static void DpFileUploadPath(DpPipeline* self) {
+    DpPipeline* pipeline = DpPipelineGetInput(self, "path");
+    GString* path = pipeline->Get(pipeline);
+    DpPipelineSetProperty(self, "path", path->str);
+}
+
+static void DpFilePushInput(struct DpPipeline* self, const char* key) {
+    if (g_strcmp0("path", key) == 0) {
+        DpFileUploadPath(self);
+    }
+}
+
 void __attribute__((overloadable)) DpPipelineCreate(DpFile** file) {
     *file = g_new(DpFile, 1);
     (*file)->pipeline = DpPipelineNew();
@@ -32,7 +44,7 @@ void __attribute__((overloadable)) DpPipelineCreate(DpFile** file) {
 
 void __attribute__((overloadable)) DpPipelineInit(DpFile* self) {
     DpPipelineInit(self->pipeline);
-    self->GetPath = NULL;
+    self->pipeline->OnPushInput = DpFilePushInput;
 }
 
 void __attribute__((overloadable)) DpPipelineDestroy(DpFile** file) {
@@ -40,4 +52,8 @@ void __attribute__((overloadable)) DpPipelineDestroy(DpFile** file) {
     DpPipelineDestroy(&pipeline);
     g_free(*file);
     *file = NULL;
+}
+
+GString* DpFileGetPath(DpFile* self) {
+    return DpPipelineGetProperty(self->pipeline, "path");
 }

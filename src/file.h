@@ -41,6 +41,9 @@ DpFile* DpFileNew(void) __attribute__((warn_unused_result));
 /// \brief Define new file pipeline.
 DP_NEW_CLASS(DpFile)
 
+/// \brief Returns path.
+GString* DpFileGetPath(DpFile*);
+
 /*!
  * \}
  */
